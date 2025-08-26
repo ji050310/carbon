@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.carbon.system.mapper.DataPanelMapper">
+    <select id="getCarbonCreditTotal" resultType="java.math.BigDecimal">
+        select ifnull(sum(total),0) from carbon_credit_assets
+        <where>
+            <if test="statDate != null">
+                and date_format(issuing_date, '%Y-%m') = date_format(curdate(), '%Y-%m')
+            </if>
+        </where>
+
+    </select>
+    <select id="getCarbonQuotaTotal" resultType="java.math.BigDecimal">
+        select ifnull(sum(total),0) from carbon_quota_assets
+        <where>
+            <if test="statDate != null">
+                and date_format(issuing_date, '%Y-%m') = date_format(curdate(), '%Y-%m')
+            </if>
+        </where>
+    </select>
+    <select id="getProjectCountStat" resultType="com.carbon.system.vo.StatCarbonProjectVo">
+        select ifnull(sum(estimated_reduction),0) reductionTotal,
+               count(if(cp.project_status = '0100000013',cp.id,null)) singCount,
+               count(if(cp.project_status = '0100000007',cp.id,null)) filingCount,
+               count(if(cp.project_status = '0100000005',cp.id,null)) approvedCount
+        from carbon_project cp
+    </select>
+
+    <select id="getProjectList" resultType="com.carbon.system.vo.StatCarbonProject">
+        select cp.project_name projectName,
+               ifnull(cp.estimated_reduction,0) reduction,
+               cp.project_status developmentState,
+               cca.transaction_status tradeState
+
+        from carbon_project cp
+                 left join carbon_credit_assets cca on cca.carbon_project_id = cp.id
+            limit 10
+    </select>
+</mapper>

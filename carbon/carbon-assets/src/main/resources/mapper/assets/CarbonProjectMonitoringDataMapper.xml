@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.carbon.assets.mapper.CarbonProjectMonitoringDataMapper">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        creator_id,
+        updated_id,
+        created_time,
+        updated_time,
+        id, carbon_project_id, status, parameter, unit, source, date_value, measuring_method, frequency, program, purpose, appraise
+    </sql>
+
+    <select id="getCarbonProjectMonitoringDataById" resultType="com.carbon.assets.vo.CarbonProjectMonitoringDataQueryVo">
+        select <include refid="Base_Column_List"/> from carbon_project_monitoring_data where id = #{id}
+    </select>
+
+    <select id="getCarbonProjectMonitoringDataPageList" resultType="com.carbon.assets.vo.CarbonProjectMonitoringDataQueryVo">
+        select <include refid="Base_Column_List"/> from carbon_project_monitoring_data
+    </select>
+
+</mapper>

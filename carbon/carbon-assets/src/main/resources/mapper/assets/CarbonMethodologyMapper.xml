@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.carbon.assets.mapper.CarbonMethodologyMapper">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        creator_id,
+        updated_id,
+        created_time,
+        updated_time,
+        id, name, status, status_code, type_code, method_code, dict_code, certification_criteria, source_file_url, cdm_code, translate_version, filing_batch, field_code, field_child_code, industry_code
+    </sql>
+    <select id="getByCode" resultType="com.carbon.assets.vo.CarbonMethodologyQueryVo">
+        select <include refid="Base_Column_List"/> from carbon_methodology where method_code = #{code}
+    </select>
+    <select id="getCarbonMethodologyById" resultType="com.carbon.assets.vo.CarbonMethodologyQueryVo">
+        select <include refid="Base_Column_List"/> from carbon_methodology where id = #{id}
+    </select>
+
+    <select id="getCarbonMethodologyByDictCode" resultType="com.carbon.assets.vo.CarbonMethodologyQueryVo">
+        select <include refid="Base_Column_List"/> from carbon_methodology where dict_code = #{id}
+    </select>
+
+    <select id="getCarbonMethodologyPageList" resultType="com.carbon.assets.vo.CarbonMethodologyQueryVo">
+        select cm.id, cm.name, sdi.item_ch as status, cm.status_code,cm.type_code, cm.method_code, cm.dict_code, cm.certification_criteria,
+        cm.source_file_url, cm.cdm_code, cm.translate_version, cm.filing_batch, cm.field_code, cm.field_child_code,
+        cm.industry_code,cm.creator_id,cm.updated_id,cm.created_time,cm.updated_time
+        from carbon_methodology cm
+        LEFT JOIN sys_dict_item sdi
+        on cm.status = sdi.item_value
+        <where>
+            <if test="param.searchKey != null and param.searchKey !='' ">
+                and (cm.name like CONCAT('%',#{param.searchKey},'%') or cm.dict_code like CONCAT('%',#{param.searchKey},'%')
+                or cm.method_code like CONCAT('%',#{param.searchKey},'%') )
+            </if>
+            <if test="param.status != null and param.status != ''">
+                and cm.status_code = #{param.status}
+            </if>
+            <if test="param.fieldCode != '' and param.fieldCode != null">
+                and cm.field_Code = #{param.fieldCode}
+            </if>
+            <if test="param.fieldChildCode != '' and param.fieldChildCode != null">
+                and cm.field_child_code = #{param.fieldChildCode}
+            </if>
+            <if test="param.industryCode != '' and param.industryCode != null">
+                and cm.industry_code = #{param.industryCode}
+            </if>
+            <if test="param.certificationCriteria != '' and param.certificationCriteria != null">
+                and cm.certification_criteria = #{param.certificationCriteria}
+            </if>
+        </where>
+    </select>
+
+    <select id="getCarbonMethodologyList" resultType="com.carbon.assets.vo.CarbonMethodologySelectVo">
+        select id, name
+        from carbon_methodology cm
+    </select>
+
+    <select id="getCarbonMethodologyByName" resultType="com.carbon.assets.entity.CarbonMethodology">
+        select cm.*,sdi.item_ch as industry_code_name from carbon_methodology cm,sys_dict_item sdi where cm.industry_code=sdi.item_value AND cm.name=#{name}
+    </select>
+</mapper>

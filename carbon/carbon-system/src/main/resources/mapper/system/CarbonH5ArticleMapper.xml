@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.carbon.system.mapper.CarbonH5ArticleMapper">
+
+
+    <select id="getPageList" resultType="com.carbon.system.vo.CarbonArticleQueryVo">
+        select
+               author,
+               browse_num,
+               category_id,
+               description,
+               id,
+               image_url,
+               status,
+               title,
+               updated_time,
+               created_time,
+               url
+        from carbon_article ca
+        where
+            1=1
+            <if test="param.categoryId != null">
+                and ca.category_id = #{param.categoryId}
+            </if>
+            <if test="param.status != null">
+                and ca.status = #{param.status}
+            </if>
+            <if test="param.searchKeywords != null">
+                <if test="param.searchKeywords !='null'">
+                    and ca.title like concat('%',concat(#{param.searchKeywords},'%'))
+                </if>
+            </if>
+
+    </select>
+
+    <select id="getMethodologyByPrimaryKey" resultType="map" parameterType="Long">
+        select *
+        from carbon_methodology_content
+        where method_id = #{id}
+        limit 1
+    </select>
+
+    <select id="getAllMethodology" resultType="long" parameterType="Long">
+        select id
+        from carbon_methodology
+    </select>
+    <select id="getContentById" resultType="java.lang.String">
+        SELECT content FROM carbon_article WHERE id = #{id}
+    </select>
+
+</mapper>

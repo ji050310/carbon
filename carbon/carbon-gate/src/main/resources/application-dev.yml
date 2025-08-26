@@ -1,0 +1,35 @@
+#spring配置
+spring:
+  datasource:
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://www.mycarbon.com:3306/carbon?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+      username: root
+      password: 1234
+  # redis
+  redis:
+    host: www.mycarbon.com
+    port: 6379
+    password: 1234
+  # nacos
+  cloud:
+    nacos:
+      discovery:
+        server-addr: http://www.mycarbon.com:8848
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+      enabled: true
+
+#接口文档
+knife4j:
+  nacos:
+    enable: true
+    serviceUrl: http://www.mycarbon.com:8848/nacos/
+
+
+# 日志
+logging:
+  level:
+    com.carbon.gate.mapper: debug

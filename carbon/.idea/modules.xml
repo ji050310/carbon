@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/carbon-assets/carbon-assets.iml" filepath="$PROJECT_DIR$/carbon-assets/carbon-assets.iml" />
+      <module fileurl="file://$PROJECT_DIR$/carbon-auth/carbon-auth.iml" filepath="$PROJECT_DIR$/carbon-auth/carbon-auth.iml" />
+      <module fileurl="file://$PROJECT_DIR$/carbon-chainmaker/carbon-chainmaker.iml" filepath="$PROJECT_DIR$/carbon-chainmaker/carbon-chainmaker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/carbon-frame/carbon-common/carbon-common.iml" filepath="$PROJECT_DIR$/carbon-frame/carbon-common/carbon-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/carbon-frame/carbon-common-model/carbon-common-model.iml" filepath="$PROJECT_DIR$/carbon-frame/carbon-common-model/carbon-common-model.iml" />
+      <module fileurl="file://$PROJECT_DIR$/carbon-gate/carbon-gate.iml" filepath="$PROJECT_DIR$/carbon-gate/carbon-gate.iml" />
+      <module fileurl="file://$PROJECT_DIR$/carbon-mq/carbon-mq.iml" filepath="$PROJECT_DIR$/carbon-mq/carbon-mq.iml" />
+      <module fileurl="file://$PROJECT_DIR$/carbon-system/carbon-system.iml" filepath="$PROJECT_DIR$/carbon-system/carbon-system.iml" />
+      <module fileurl="file://$PROJECT_DIR$/carbon-trade/carbon-trade.iml" filepath="$PROJECT_DIR$/carbon-trade/carbon-trade.iml" />
+    </modules>
+  </component>
+</project>

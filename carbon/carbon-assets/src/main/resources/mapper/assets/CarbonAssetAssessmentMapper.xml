@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.carbon.assets.mapper.CarbonAssetAssessmentMapper">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, item_id, project_type, field_type, question_value, question_name, answer
+    </sql>
+
+    <select id="getCarbonAssetAssessmentById" resultType="com.carbon.assets.vo.CarbonAssetAssessmentQueryVo">
+        select <include refid="Base_Column_List"/> from carbon_asset_assessment where id = #{id}
+    </select>
+
+    <select id="getCarbonAssetAssessmentPageList" resultType="com.carbon.assets.vo.CarbonAssetAssessmentQueryVo">
+        select <include refid="Base_Column_List"/> from carbon_asset_assessment
+    </select>
+
+    <select id="getBusinessData" resultType="com.carbon.assets.vo.CarbonDetectionDataVo">
+        SELECT xci.unit,
+               xci.description,
+               xci.data_use,
+               xci.comment,
+               xcm.mode_name,
+               xcid.qa_qc_program,
+               xcid.method_program,
+               xcid.frequence,
+               xcf.source_from,
+               xcf.parameter_list
+        FROM x_carbon_index xci
+                 LEFT JOIN x_carbon_factor xcf ON xcf.index_code=xci.code
+                 LEFT JOIN x_carbon_model xcm ON xcm.index_code=xci.code
+                 LEFT JOIN x_carbon_index_detection xcid ON xcid.index_code=xci.code
+
+        WHERE (xci.name LIKE concat('%',#{param.name},'%') or xci.name LIKE concat('%',#{param.name},'%')) AND xcf.parameter_list LIKE concat('%',#{param.time},'%') AND xci.need_monitor=1
+
+    </select>
+
+</mapper>

@@ -1,0 +1,41 @@
+package ${package.Service};
+
+import ${cfg.entityPath};
+import ${superServiceClassPackage};
+import ${cfg.queryParamPath};
+import ${cfg.queryVoPath};
+import ${cfg.paging};
+
+import java.io.Serializable;
+
+/**
+ * <p>
+ * $!{table.comment} 服务类
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+#if(${kotlin})
+interface ${table.serviceName} : ${superServiceClass}<${entity}>
+#else
+public interface ${table.serviceName} extends ${superServiceClass}<${entity}> {
+#if(${cfg.generatorStrategy})
+
+    /**
+     * 根据ID获取查询对象
+     * @param id 主键id
+     * @return ${entity}QueryVo
+     */
+    ${entity}QueryVo get${entity}ById(Serializable id);
+
+    /**
+     * 获取分页对象
+     * @param param ${entity}QueryParam
+     * @return Paging<${entity}QueryVo>
+     */
+    Paging<${entity}QueryVo> get${entity}PageList(${entity}QueryParam param);
+#end
+
+}
+#end

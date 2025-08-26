@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.carbon.assets.mapper.CarbonAssetsMapper">
+
+
+    <select id="getCarbonAssetsPageList" resultType="com.carbon.assets.vo.CarbonAssetsQueryVo">
+        select
+        ca.id,
+        ca.certified_tx_id,
+        ca.carbon_source_data_id,
+        ca.receiving_id,
+        ca.publish_id,
+        ca.status,
+        ca.type,
+        ca.uom_type,
+        ca.amount,
+        ca.meta_data,
+        ca.main_list,
+        ca.time_scope,
+        ca.created_time,
+        ca.updated_time,
+        ca.source_channel,
+        st_r.tenant_name receivingName,
+        st_p.tenant_name publishName
+        from carbon_assets ca
+        left join sys_tenant st_r on st_r.id = ca.receiving_id
+        left join sys_tenant st_p on st_p.id = ca.publish_id
+        <where>
+            <if test="param.type != null">
+                ca.type = #{param.type}
+            </if>
+            <if test="param.id != null and param.id != ''">
+                and ca.id = #{param.id}
+            </if>
+            <if test="param.status != null">
+                and ca.status = #{param.status}
+            </if>
+            <if test="param.uomType != null">
+                and ca.uom_type = #{param.uomType}
+            </if>
+            <if test="param.sourceChannel != null">
+                and ca.source_channel = #{param.sourceChannel}
+            </if>
+            <if test="param.startDate != null ">
+                and <![CDATA[ ca.created_time >= #{param.startDate} ]]>
+            </if>
+            <if test="param.endDate != null ">
+                and <![CDATA[ ca.created_time <= #{param.endDate} ]]>
+            </if>
+        </where>
+    </select>
+
+</mapper>

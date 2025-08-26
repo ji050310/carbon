@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.carbon.system.mapper.SysTenantMapper">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        st.creator_id,
+        st.updated_id,
+        st.created_time,
+        st.updated_time,
+        st.id,
+        st.tenant_name,
+        st.org_name,
+        st.tenant_status,
+        st.type,
+        st.legal_representative,
+        st.social_credit_code,
+        st.business_license,
+        st.greenness_integral,
+        st.greenness_level,
+        st.industry,
+--         st.validity_day_num,
+        st.telephone,
+        st.address,
+        st.fax_number,
+        st.remarks,
+        st.contacts_name,
+        st.contacts_position,
+        st.contacts_phone,
+        st.contacts_email,
+        st.validity_time,
+        st.introduction
+    </sql>
+
+    <select id="getSysTenantById" resultType="com.carbon.system.vo.SysTenantQueryVo">
+        select <include refid="Base_Column_List"/> from sys_tenant as st where id = #{id}
+    </select>
+
+    <select id="getSysTenantPageList" resultType="com.carbon.system.vo.SysTenantQueryVo">
+        select <include refid="Base_Column_List"/> from sys_tenant as st
+
+        <where>
+            <if test="param.searchKey != null and param.searchKey !='' ">
+                (
+                st.tenant_name like CONCAT('%',#{param.searchKey},'%')
+            or  st.org_name  like CONCAT('%',#{param.searchKey},'%')
+                )
+            </if>
+
+            <if test="param.tenantStatus != null">
+                and st.tenant_status = #{param.tenantStatus}
+            </if>
+            <if test="param.type != null and param.type !=''">
+                and st.type = #{param.type}
+            </if>
+            <if test="param.industry != null">
+                and st.industry = #{param.industry}
+            </if>
+        </where>
+    </select>
+
+
+    <select id="getSysTenantList" resultType="com.carbon.domain.system.vo.SysTenantModelVo" useCache="true">
+        select <include refid="Base_Column_List"/> from sys_tenant as st
+    </select>
+
+</mapper>

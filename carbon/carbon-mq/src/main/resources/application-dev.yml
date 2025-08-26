@@ -1,0 +1,30 @@
+rocketmq:
+  name-server: www.mycarbon.com:9876
+  producer:
+    group: carbon-system
+    send-message-timeout: 300000
+
+#spring配置
+spring:
+  datasource:
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://www.mycarbon.com:3306/carbon?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+      username: root
+      password: 1234
+  #redis
+  redis:
+    host: www.mycarbon.com
+    port: 6379
+    password: 1234
+  #nacos
+  cloud:
+    nacos:
+      discovery:
+        server-addr: http://www.mycarbon.com:8848
+
+# 日志
+logging:
+  level:
+    com.carbon.trade.mapper: debug
+

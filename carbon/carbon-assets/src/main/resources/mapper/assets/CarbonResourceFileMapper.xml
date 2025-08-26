@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.carbon.assets.mapper.CarbonResourceFileMapper">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        creator_id,
+        updated_id,
+        created_time,
+        updated_time,
+        id, business_id, file_dict_code, file_dict_value, file_name, url, tenant_id
+    </sql>
+
+</mapper>

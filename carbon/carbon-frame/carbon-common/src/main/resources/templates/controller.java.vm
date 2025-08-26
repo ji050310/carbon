@@ -1,0 +1,111 @@
+package ${cfg.projectPackage}.${package.ModuleName}.controller;
+
+import ${cfg.projectPackage}.${package.ModuleName}.service.${entity}Service;
+import ${cfg.queryParamPath};
+import ${cfg.queryVoPath};
+import ${cfg.entityPath};
+#if(${superControllerClassPackage})
+import ${superControllerClassPackage};
+#end
+import com.carbon.domain.common.ApiResult;
+import ${cfg.paging};
+    #if(${swagger2})
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+#end
+import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+#if(${restControllerStyle})
+#else
+import org.springframework.stereotype.Controller;
+#end
+
+import javax.validation.Valid;
+
+
+/**
+ * <p>
+ * $!{table.comment} 前端控制器
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+@Slf4j
+#if(${restControllerStyle})
+@RestController
+#else
+@Controller
+#end
+@RequestMapping("/${cfg.entityObjectName}")
+@Api(value = "${table.comment}模块", tags = {"${table.comment}模块"})
+#if(${kotlin})
+class ${table.controllerName}#if(${superControllerClass}) : ${superControllerClass}()#end
+
+#else
+#if(${superControllerClass})
+public class ${table.controllerName} extends ${superControllerClass} {
+#else
+public class ${table.controllerName} {
+#end
+
+    @Autowired
+    private ${table.serviceName} ${cfg.serviceObjectName};
+
+#if(${cfg.generatorStrategy})
+    /**
+    * 添加$!{table.comment}
+    */
+    @PostMapping("/add")
+    @ApiOperation(value = "添加${entity}对象",notes = "添加$!{table.comment}")
+    public ApiResult<Boolean> add${entity}(@Valid @RequestBody ${entity} ${cfg.entityObjectName}) {
+        boolean flag = ${cfg.serviceObjectName}.save(${cfg.entityObjectName});
+        return ApiResult.result(flag);
+    }
+
+    /**
+    * 修改$!{table.comment}
+    */
+    @PutMapping("/update")
+    @ApiOperation(value = "修改${entity}对象",notes = "修改$!{table.comment}")
+    public ApiResult<Boolean> update${entity}(@Valid @RequestBody ${entity} ${cfg.entityObjectName}) {
+        boolean flag = ${cfg.serviceObjectName}.updateById(${cfg.entityObjectName});
+        return ApiResult.result(flag);
+    }
+
+    /**
+    * 删除$!{table.comment}
+    */
+    @DeleteMapping("/delete/{id}")
+    @ApiOperation(value = "删除${entity}对象",notes = "删除$!{table.comment}")
+    public ApiResult<Boolean> delete${entity}(@PathVariable String id) {
+        boolean flag = ${cfg.serviceObjectName}.removeById(id);
+        return ApiResult.result(flag);
+    }
+
+    /**
+    * 获取$!{table.comment}
+    */
+    @GetMapping("/info/{id}")
+    @ApiOperation(value = "获取${entity}对象详情",notes = "查看$!{table.comment}")
+    public ApiResult<${entity}QueryVo> get${entity}(@PathVariable String id) {
+        ${entity}QueryVo ${cfg.entityObjectName}QueryVo = ${cfg.serviceObjectName}.get${entity}ById(id);
+        return ApiResult.ok(${cfg.entityObjectName}QueryVo);
+    }
+
+    /**
+     * $!{table.comment}分页列表
+     */
+    @PostMapping("/getPageList")
+    @ApiOperation(value = "获取${entity}分页列表",notes = "$!{table.comment}分页列表")
+    public ApiResult<Paging<${entity}QueryVo>> get${entity}PageList(@Valid @RequestBody(required = false) ${entity}QueryParam ${cfg.entityObjectName}QueryParam) {
+        Paging<${entity}QueryVo> paging = ${cfg.entityObjectName}Service.get${entity}PageList(${cfg.entityObjectName}QueryParam);
+        return ApiResult.ok(paging);
+    }
+#end
+
+}
+
+#end

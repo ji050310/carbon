@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.carbon.assets.mapper.CarbonMetaregistryDocContentMapper">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, registry_id, project_meta_id, content, type, title, url, finish_time, create_time, update_time
+    </sql>
+
+    <select id="getCarbonMetaregistryDocContentById" resultType="com.carbon.assets.vo.CarbonMetaregistryDocContentQueryVo">
+        select <include refid="Base_Column_List"/> from carbon_metaregistry_doc_content where id = #{id}
+    </select>
+
+    <select id="getCarbonMetaregistryDocContentPageList" resultType="com.carbon.assets.vo.CarbonMetaregistryDocContentQueryVo">
+        select <include refid="Base_Column_List"/> from carbon_metaregistry_doc_content
+    </select>
+
+    <select id="getMetaregistryContentByRefIdEs" resultType="com.carbon.assets.vo.CarbonMetaregistryDocContentEsVo">
+        select
+        cmd.id,
+        cp.id project_code,
+        cp.project_name,
+        cp.owner_name,
+        cp.project_scope_code,
+        s1.item_ch project_scope,
+        cp.project_type_code,
+        s2.item_ch project_type,
+        cp.carbon_methodology,
+        s3.name carbon_methodology_name,
+        s3.industry_code,
+        s5.item_ch certification_criteria,
+        cp.project_status project_status_code,
+        s4.item_ch project_status,
+        cp.initiation_date,
+        cm.estimated_annual_reduction,
+        cm.certified_standard_code,
+        cmd.registry_id,
+        cmd.project_ref_id,
+        cmd.type,
+        cmd.type_code,
+        cmd.title,
+        cmd.url,
+        cp.record_filing_date,
+        cp.issuing_date,
+        cmd.finish_time,
+        cmd.create_time,
+        cmd.update_time
+        FROM carbon_metaregistry cm,carbon_metaregistry_doc cmd,carbon_project cp
+        LEFT JOIN sys_dict_item s1 on s1.item_value=cp.project_scope_code
+        LEFT JOIN sys_dict_item s2 on s2.item_value=cp.project_type_code
+        LEFT JOIN carbon_methodology s3 on s3.dict_code=cp.carbon_methodology
+        LEFT JOIN sys_dict_item s4 on s4.item_value=cp.project_status
+        LEFT JOIN sys_dict_item s5 on s5.item_value=s3.certification_criteria
+        WHERE cm.id=cmd.registry_id
+          and cm.ref_id=cp.ref_id
+          and cmd.project_ref_id=#{refId}
+          and cmd.type_code=#{typeCode};
+    </select>
+</mapper>

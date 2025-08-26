@@ -1,0 +1,83 @@
+log:
+  config_file: ../config/xcarbon/log.yml
+blockchain:
+- chainId: xcarbonchain1
+  genesis: ../config/xcarbon/chainconfig/bc1.yml
+node:
+  type: full
+  org_id: xcarbon
+  priv_key_file: ../config/xcarbon/certs/node/xcarbonnode2/xcarbonnode2.sign.key
+  cert_file: ../config/xcarbon/certs/node/xcarbonnode2/xcarbonnode2.sign.crt
+  signer_cache_size: 1000
+  cert_cache_size: 1000
+  pkcs11:
+    enabled: false
+    library: ""
+    label: ""
+    password: ""
+    session_cache_size: 10
+    hash: SHA256
+net:
+  provider: LibP2P
+  listen_addr: /ip4/0.0.0.0/tcp/11302
+  seeds:
+  - /ip4/0.0.0.0/tcp/11303/p2p/QmSx2VA6jVRfLnDjYd2WriXaK1QXAayrf8KfCZVsAnTpgy
+  - /ip4/0.0.0.0/tcp/11304/p2p/QmRXTNHsmgb4CRJAazb3pPn9tKTNvbW7ANTrD8vTZYQM87
+  - /ip4/0.0.0.0/tcp/11301/p2p/QmcFSYrDwCdDozf64s6mBSrVyt1SLBa33UjxquHMUPAWpg
+  - /ip4/0.0.0.0/tcp/11302/p2p/QmcYB5SpXeGj6ZdKjCEVFCtYNhVZnRiTLYtdxYpFE2MXix
+  tls:
+    enabled: true
+    priv_key_file: ../config/xcarbon/certs/node/xcarbonnode2/xcarbonnode2.tls.key
+    cert_file: ../config/xcarbon/certs/node/xcarbonnode2/xcarbonnode2.tls.crt
+txpool:
+  max_txpool_size: 50000
+  max_config_txpool_size: 10
+  full_notify_again_time: 30
+  batch_max_size: 30000
+  batch_create_timeout: 200
+rpc:
+  provider: grpc
+  port: 12306
+  check_chain_conf_trust_roots_change_interval: 60
+  ratelimit:
+    token_per_second: -1
+    token_bucket_size: -1
+  subscriber:
+    ratelimit:
+      token_per_second: 100
+      token_bucket_size: 100
+  tls:
+    mode: twoway
+    priv_key_file: ../config/xcarbon/certs/node/xcarbonnode2/xcarbonnode2.tls.key
+    cert_file: ../config/xcarbon/certs/node/xcarbonnode2/xcarbonnode2.tls.crt
+monitor: null
+pprof: null
+storage:
+  store_path: ../data/xcarbon-xcarbonnode2/ledgerData1
+  unarchive_block_height: 300000
+  blockdb_config:
+    provider: leveldb
+    leveldb_config:
+      store_path: ../data/xcarbon-xcarbonnode2/block
+  statedb_config:
+    provider: leveldb
+    leveldb_config:
+      store_path: ../data/xcarbon-xcarbonnode2/state
+  historydb_config:
+    provider: leveldb
+    leveldb_config:
+      store_path: ../data/xcarbon-xcarbonnode2/history
+  resultdb_config:
+    provider: leveldb
+    leveldb_config:
+      store_path: ../data/xcarbon-xcarbonnode2/result
+  disable_contract_eventdb: true
+  contract_eventdb_config:
+    provider: sql
+    sqldb_config:
+      sqldb_type: mysql
+      dsn: root:password@tcp(127.0.0.1:3306)/
+core:
+  evidence: false
+scheduler:
+  rwset_log: false

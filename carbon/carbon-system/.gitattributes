@@ -1,0 +1,5 @@
+demo.txt merge=ours
+/src/main/resources/aaa.txt merge=ours
+/src/main/resources/application-dev.yml merge=ours
+/src/main/resources/application-dev.yml merge=ours
+/src/main/resources/application.yml merge=ours

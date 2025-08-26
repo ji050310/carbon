@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.carbon.system.mapper.TenantUserMapper">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        creator_id,
+        updated_id,
+        created_time,
+        updated_time,
+        id, carbon_user_id, user_name, sex, phone, nick_name, email, user_type, user_status, greenness_integral, greenness_level, source_channel, balance, carbon_reduction, remarks, tenant_id, carbon_level, avatar, carbon_credit, sectionalization
+    </sql>
+
+<!--    <select id="getTenantUserById" resultType="com.carbon.system.vo.TenantUserQueryVo">-->
+<!--        select <include refid="Base_Column_List"/> from tenant_user where id = #{id}-->
+<!--    </select>-->
+
+<!--    <select id="getTenantUserPageList" resultType="com.carbon.system.vo.TenantUserQueryVo">-->
+<!--        select <include refid="Base_Column_List"/> from tenant_user-->
+<!--    </select>-->
+
+</mapper>

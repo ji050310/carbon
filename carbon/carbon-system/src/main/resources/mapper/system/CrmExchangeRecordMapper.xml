@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.carbon.system.mapper.CrmExchangeRecordMapper">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, user_id, exchange_product, exchange_integral, exchange_time
+    </sql>
+
+    <select id="getCrmExchangeRecordById" resultType="com.carbon.system.vo.CrmExchangeRecordVo">
+        select <include refid="Base_Column_List"/> from crm_exchange_record where id = #{id}
+    </select>
+
+    <select id="getCrmExchangeRecordPageList" resultType="com.carbon.system.vo.CrmExchangeRecordVo">
+        select <include refid="Base_Column_List"/> from crm_exchange_record
+    </select>
+
+</mapper>

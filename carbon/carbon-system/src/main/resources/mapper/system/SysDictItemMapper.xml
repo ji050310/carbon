@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.carbon.system.mapper.SysDictItemMapper">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        creator_id,
+        updated_id,
+        created_time,
+        updated_time,
+        id,
+        dict_code, item_value, item_ch, item_en, description, sort_order, status
+    </sql>
+
+    <select id="getSysDictItemById" resultType="com.carbon.system.vo.SysDictItemQueryVo">
+        select <include refid="Base_Column_List"/> from sys_dict_item where id = #{id}
+    </select>
+
+    <select id="getSysDictItemByItemValue" resultType="com.carbon.system.vo.SysDictItemQueryVo">
+        select <include refid="Base_Column_List"/> from sys_dict_item where item_value = #{id}
+    </select>
+
+    <select id="getSysDictItemPageList" resultType="com.carbon.system.vo.SysDictItemQueryVo">
+        select <include refid="Base_Column_List"/> from sys_dict_item
+    </select>
+
+
+
+
+    <select id="getMethodologNameyByDictCode" resultType="string">
+        select name from carbon_methodology where dict_code = #{id}
+    </select>
+
+</mapper>

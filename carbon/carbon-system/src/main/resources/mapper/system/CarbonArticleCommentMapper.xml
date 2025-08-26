@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.carbon.system.mapper.CarbonArticleCommentMapper">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        creator_id,
+        updated_id,
+        created_time,
+        updated_time,
+        id, article_id, content, reply_user_id, like_num, parent_id
+    </sql>
+
+    <select id="getCarbonArticleCommentById" resultType="com.carbon.system.vo.CarbonArticleCommentQueryVo">
+        select <include refid="Base_Column_List"/> from carbon_article_comment where id = #{id}
+    </select>
+
+    <select id="getCarbonArticleCommentPageList" resultType="com.carbon.system.vo.CarbonArticleCommentQueryVo">
+        select <include refid="Base_Column_List"/> from carbon_article_comment
+    </select>
+
+</mapper>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.carbon.assets.mapper.CarbonSourceDataMapper">
+
+    <select id="getCarbonSourceDataPageList" resultType="com.carbon.assets.vo.CarbonSourceDataQueryVo">
+        select
+        csd.id,
+        csd.state,
+        csd.type,
+        csd.uom_type,
+        csd.amount,
+        csd.source_channel,
+        csd.start_date,
+        csd.end_date,
+        csd.submitted_time,
+        csd.audit_time,
+        csd.tenant_id,
+        csd.creator_id,
+        csd.creator_id,
+        csd.created_time,
+        csd.updated_id,
+        csd.updated_time,
+        cp.name carbonProjectName,
+        cp.carbon_methodology
+
+        from carbon_source_data csd
+        left join carbon_project cp on cp.id = csd.carbon_project_id
+        <where>
+            <if test="param.id != null and param.id != ''">
+                csd.id = #{param.id}
+            </if>
+            <if test="param.type != null">
+                and csd.type = #{param.type}
+            </if>
+            <if test="param.status != null">
+                and csd.status = #{param.status}
+            </if>
+            <if test="param.uomType != null">
+                and csd.uom_type = #{param.uomType}
+            </if>
+            <if test="param.sourceChannel != null">
+                and csd.source_channel = #{param.sourceChannel}
+            </if>
+            <if test="param.startDate != null ">
+                and <![CDATA[ csd.start_date >= #{param.startDate} ]]>
+            </if>
+            <if test="param.endDate != null ">
+                and <![CDATA[ csd.start_date <= #{param.endDate} ]]>
+            </if>
+            <if test="param.submittedTimeStart != null ">
+                and <![CDATA[ csd.submitted_time >= #{param.submittedTimeStart} ]]>
+            </if>
+            <if test="param.submittedTimeEnd != null ">
+                and <![CDATA[ csd.submitted_time <= #{param.submittedTimeEnd} ]]>
+            </if>
+            <if test="param.auditTimeStart != null ">
+                and <![CDATA[ csd.audit_time >= #{param.auditTimeStart} ]]>
+            </if>
+            <if test="param.auditTimeEnd != null ">
+                and <![CDATA[ csd.audit_time <= #{param.auditTimeEnd} ]]>
+            </if>
+            <if test="param.esCarbonMethodology != null and param.esCarbonMethodology !=''">
+                and cp.carbon_methodology = #{param.esCarbonMethodology}
+            </if>
+            <if test="param.carbonProjectId != null and param.carbonProjectId !=''">
+                and cp.id = #{param.carbonProjectId}
+            </if>
+        </where>
+    </select>
+
+</mapper>

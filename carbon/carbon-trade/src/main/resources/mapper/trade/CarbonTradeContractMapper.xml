@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.carbon.trade.mapper.CarbonTradeContractMapper">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        creator_id,
+        updated_id,
+        created_time,
+        updated_time,
+        id, trade_quote_id, seller_id, seller_name, seller_contacts, seller_phone, seller_email, buyer_id, buyer_name, buyer_contacts, buyer_phone, buyer_email, asset_type, project_type, trade_quantity, asset_unit, asset_unit_price, status, delivery_method, delivery_exchange, delivery_time, expiration_date,remark
+    </sql>
+
+    <select id="getCarbonTradeContractById" resultType="com.carbon.trade.vo.CarbonTradeContractQueryVo">
+        select <include refid="Base_Column_List"/> from carbon_trade_contract where id = #{id}
+    </select>
+
+    <select id="getCarbonTradeContractPageList" resultType="com.carbon.trade.vo.CarbonTradeContractQueryVo">
+        select <include refid="Base_Column_List"/> from carbon_trade_contract
+        <where>
+            <if test="param.buyerName != null and param.buyerName != '' ">
+                and buyer_name like concat('%',#{param.buyerName},'%')
+            </if>
+            <if test="param.sellerName != null and param.sellerName != '' ">
+                and seller_name like concat('%',#{param.sellerName},'%')
+            </if>
+            <if test="param.projectType != null and param.projectType != '' ">
+                and project_type = #{param.projectType}
+            </if>
+            <if test="param.assetType != null and param.assetType != '' ">
+                and asset_type = #{param.assetType}
+            </if>
+            <if test="param.status != null and param.status != '' ">
+                and status = #{param.status}
+            </if>
+            <if test="param.tradeRole == '0270000001'">
+                and buyer_id = #{tenantId}
+            </if>
+            <if test="param.tradeRole == '0270000002'">
+                and seller_id = #{tenantId}
+            </if>
+            <if test="param.expirationDateStart != null and param.expirationDateEnd != null">
+                and date_format(expiration_date,'%Y-%m-%d')  between date_format(#{param.expirationDateStart},'%Y-%m-%d')
+                and  date_format(#{param.expirationDateEnd},'%Y-%m-%d')
+            </if>
+        </where>
+    </select>
+
+</mapper>

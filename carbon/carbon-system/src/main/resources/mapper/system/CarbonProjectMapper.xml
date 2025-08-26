@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.carbon.system.mapper.CarbonProjectMapper">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        cp.creator_id,
+        cp.updated_id,
+        cp.created_time,
+        cp.updated_time,
+        cp.id, cp.project_name, cp.project_introduction, cp.principal_name,
+        cp.principal_phone, cp.legal_person_name, cp.legal_person_phone, cp.project_type,
+        cp.project_status, cp.country, cp.province, cp.city, cp.address,cp.owner_name,
+        cp.assets_develop_agency,cp.initiation_date ,cp.carbon_methodology, cp.approval_date, cp.record_filing_date, cp.certified_date, cp.issuing_date, cp.tenant_id
+    </sql>
+
+
+    <update id="updateInitiationDate">
+        update carbon_project set initiation_date=#{date} where id=#{id}
+    </update>
+
+</mapper>

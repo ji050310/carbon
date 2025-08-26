@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.carbon.assets.mapper.CarbonMetaregistryMapper">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, ref_id, project_code, project_name, project_scope, project_scope_code, project_scope_type, project_scope_type_code,
+        project_owner, project_developer, certified_standard, methodology_sn, methodology_code, methodology_name,
+        project_status_code, project_status, project_quality, project_area, project_country, project_province,
+        project_site, estimated_annual_reduction, ref_reduction, issued_reduction, retired_reduction,
+        remaining_reduction, project_url, project_auditor, pub_time,
+        project_verifier, create_time, update_time,
+        project_industry,project_industry_code,certified_date
+    </sql>
+
+    <sql id="Base_Column_List_AS">
+        cm.id, cm.ref_id, cm.project_code,
+        cm.project_name, cm.project_scope, cm.project_scope_code, cm.project_scope_type,
+        cm.project_scope_type_code,cm.project_owner, cm.project_developer, cm.certified_standard,
+        cm.methodology_sn, cm.methodology_code, cm.methodology_name,
+        cm.project_status_code, cm.project_status, cm.project_quality, cm.project_area, cm.project_country, cm.project_province,
+        cm.project_site, cm.estimated_annual_reduction, cm.ref_reduction, cm.issued_reduction, cm.retired_reduction,
+        cm.remaining_reduction, cm.project_url, cm.project_auditor, cm.pub_time,cm.issuing_date,
+        cm.project_verifier, cm.create_time, cm.update_time,
+        cm.project_industry,cm.project_industry_code,cm.certified_date
+    </sql>
+
+
+    <select id="getCarbonMetaregistryById" resultType="com.carbon.assets.vo.CarbonMetaregistryQueryVo">
+        select <include refid="Base_Column_List"/> from carbon_metaregistry where id = #{id}
+    </select>
+
+    <select id="getMetaregistryContentByRefId" resultType="com.carbon.assets.vo.CarbonMetaregistryQueryVo">
+        select <include refid="Base_Column_List_AS"/>
+            from carbon_metaregistry cm
+            LEFT JOIN  carbon_metaregistry_doc cmc
+            ON cm.id =  cmc.registry_id
+            WHERE
+                cm.ref_id = #{refId}
+    </select>
+
+    <select id="getCarbonMetaregistryPageList" resultType="com.carbon.assets.vo.CarbonMetaregistryQueryVo">
+        select
+        cm.id,
+        cm.ref_id,
+        cm.project_code,
+        cm.project_name,
+        cm.project_scope_code,
+        cm.project_scope,
+        cm.project_owner,
+        cm.certified_standard_code,
+        s1.item_ch certified_Standard,
+        cm.methodology_name,
+        cm.project_status_code,
+        s2.item_ch project_status,
+        cm.record_filing_date,
+        cm.certified_date,
+        cm.issuing_date,
+        cm.estimated_annual_reduction
+        from carbon_metaregistry cm
+        left join sys_dict_item s1 on cm.certified_standard_code=s1.item_value
+        left join sys_dict_item s2 on cm.project_status_code=s2.item_value
+        <where>
+            <if test="param.projectName != null and param.projectName !='' ">
+                (cm.project_name like CONCAT('%',#{param.projectName},'%'))
+            </if>
+            <if test="param.methodologyName != null and param.methodologyName !='' ">
+               and  (cm.methodology_name like CONCAT('%',#{param.methodologyName},'%'))
+            </if>
+            <if test="param.certifiedStandardCode !=null and param.certifiedStandardCode!='' ">
+                and cm.certified_standard_code = #{param.certifiedStandardCode}
+            </if>
+
+            <if test="param.projectScopeCode !=null and param.projectScopeCode!='' ">
+                and cm.project_scope_code = #{param.projectScopeCode}
+            </if>
+            <if test="param.projectTypeCode !=null and param.projectTypeCode!='' ">
+                and cm.project_scope_type_code = #{param.projectTypeCode}
+            </if>
+            <if test="param.projectStatusCode !=null and param.projectStatusCode!='' ">
+                and cm.project_status_code = #{param.projectStatusCode}
+            </if>
+            <if test="param.projectIndustryCode !=null and param.projectIndustryCode!='' ">
+                and project_industry_code = #{param.projectIndustryCode}
+            </if>
+
+            <if test="param.refDateStart != null ">
+                and <![CDATA[ record_filing_date >= #{param.refDateStart} ]]>
+            </if>
+            <if test="param.refDateEnd != null ">
+                and <![CDATA[  record_filing_date <= #{param.refDateEnd} ]]>
+            </if>
+
+            <if test="param.issueDateStart != null ">
+                and <![CDATA[ issuing_date >= #{param.issueDateStart} ]]>
+            </if>
+            <if test="param.issueDateEnd != null ">
+                and <![CDATA[  issuing_date <= #{param.issueDateEnd} ]]>
+            </if>
+        </where>
+    </select>
+
+    <select id="MetaregistryEsAdd" resultType="com.carbon.assets.vo.CarbonMetaregistryDocContentEsVo">
+        select
+            cm.id,
+            cm.ref_id,
+            cm.project_code,
+            cm.project_name,
+            cm.project_scope_code,
+            cm.project_scope,
+            cm.project_scope_type_code,
+            cm.project_scope_type,
+            cm.project_owner,
+            cm.certified_standard_code,
+            s1.item_ch certifiedStandard,
+            cm.methodology_code,
+            cm.methodology_name,
+            cmy.industry_code,
+            cm.project_status_code,
+            s2.item_ch project_status,
+            cm.record_filing_date,
+            cm.certified_date,
+            cm.issuing_date,
+            cm.estimated_annual_reduction
+            from carbon_metaregistry cm
+            left join sys_dict_item s1 on cm.certified_standard_code=s1.item_value
+            left join sys_dict_item s2 on cm.project_status_code=s2.item_value
+            LEFT JOIN carbon_methodology cmy on cm.methodology_code=cmy.dict_code
+    </select>
+
+    <select id="getContentMsgByref" resultType="com.carbon.assets.vo.CarbonMetaregistryDocContentEsVo">
+        select
+            cm.id,
+            cm.ref_id,
+            cm.project_code,
+            cm.project_name,
+            cm.project_scope_code,
+            cm.project_scope,
+            cm.project_scope_type_code,
+            cm.project_scope_type,
+            cm.project_owner,
+            cm.certified_standard_code,
+            s1.item_ch certified_Standard,
+            cm.methodology_code,
+            s3.`name` methodology_name,
+            s3.industry_code,
+            cm.project_status_code,
+            s2.item_ch project_status,
+            cm.record_filing_date,
+            cm.certified_date,
+            cm.issuing_date,
+            cm.estimated_annual_reduction,
+            cmd.project_ref_id,
+            cmd.type_code,
+            cmd.title,
+            cmd.url
+        from carbon_metaregistry_doc cmd
+                 LEFT JOIN carbon_metaregistry cm on cm.id=cmd.registry_id
+                 left join sys_dict_item s1 on cm.certified_standard_code=s1.item_value
+                 left join sys_dict_item s2 on cm.project_status_code=s2.item_value
+                 LEFT JOIN carbon_methodology s3 on cm.methodology_code=s3.dict_code
+        WHERE cmd.project_ref_id=#{refId} and cmd.type_code=#{type}
+    </select>
+
+
+
+</mapper>

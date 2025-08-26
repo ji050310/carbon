@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.carbon.system.mapper.SysAccountMapper">
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        sa.creator_id,
+        sa.created_time,
+        sa.updated_id,
+        sa.updated_time,
+        sa.id,
+        sa.account_name,
+        sa.username,
+        sa.phone, sa.email, sa.password,
+        sa.account_status, sa.tenant_id, sa.remarks, sa.avatar, sa.account_type, sa.validity_period, sa.product_version
+    </sql>
+
+    <select id="getSysAccountById" resultType="com.carbon.system.vo.SysAccountQueryVo">
+        select <include refid="Base_Column_List"/> from sys_account sa where sa.id = #{id}
+    </select>
+
+    <select id="getSysAccountPageList" resultType="com.carbon.system.vo.SysAccountQueryVo">
+        select <include refid="Base_Column_List"/>
+        from sys_account sa
+        left join sys_tenant st on st.id = sa.tenant_id
+        <where>
+            <if test="param.accountType != null and param.accountType !=''">
+                and sa.account_type = #{param.accountType}
+            </if>
+            <if test="param.accountStatus != null and param.accountStatus !=''">
+                and sa.account_status = #{param.accountStatus}
+            </if>
+            <if test="param.productVersion != null and param.productVersion !=''">
+                and sa.product_version = #{param.productVersion}
+            </if>
+            <if test="param.keywords != null and param.keywords !=''">
+                and (sa.username like concat('%',concat(#{param.keywords},'%'))
+                or sa.account_name like concat('%',concat(#{param.keywords},'%'))
+                or st.tenant_name like concat('%',concat(#{param.keywords},'%'))
+                )
+            </if>
+        </where>
+    </select>
+
+    <select id="selectForUpdate" resultType="com.carbon.system.entity.SysAccount">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_account sa where account_name = #{accountName} for update
+    </select>
+
+    <select id="selectByIdForUpdate" resultType="com.carbon.system.entity.SysAccount">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_account sa where id = #{accountId} for update
+    </select>
+</mapper>

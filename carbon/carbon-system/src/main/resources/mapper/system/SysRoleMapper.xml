@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.carbon.system.mapper.SysRoleMapper">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        creator_id,
+        created_time,
+        updated_id,
+        updated_time,
+        id, role_code, role_name, status, remarks
+    </sql>
+
+    <select id="getSysRoleById" resultType="com.carbon.system.vo.SysRoleQueryVo">
+        select <include refid="Base_Column_List"/> from sys_role where id = #{id}
+    </select>
+
+    <select id="getSysRolePageList" resultType="com.carbon.system.vo.SysRoleQueryVo">
+        select <include refid="Base_Column_List"/>
+        from sys_role sr
+        <where>
+            <if test="param.roleName != null and param.roleName != ''">
+                sr.role_name like concat('%',#{param.roleName},'%')
+            </if>
+            <if test="param.status != null and param.status != ''">
+                and sr.status = #{param.status}
+            </if>
+        </where>
+
+    </select>
+
+</mapper>

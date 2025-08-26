@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.carbon.assets.mapper.CarbonMethodologyContentMapper">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        creator_id,
+        updated_id,
+        created_time,
+        updated_time,
+        id, name, content, status, status_code, type_code, method_code, dict_code, certification_criteria, source_file_url, cdm_code, translate_version, filing_batch, field_code, field_child_code, industry_code
+    </sql>
+
+    <select id="getCarbonMethodologyContentById" resultType="com.carbon.assets.vo.CarbonMethodologyContentQueryVo">
+        select <include refid="Base_Column_List"/> from carbon_methodology where id = #{id}
+    </select>
+
+    <select id="getCarbonMethodologyById" resultType="com.carbon.assets.entity.CarbonMethodologyContent">
+        select cm.*,sdi1.item_ch as certificationCriteriaName,
+               sdi2.item_ch as fieldCodeName,
+               sdi3.item_ch as industryCodeName
+        from carbon_methodology cm,sys_dict_item sdi1,sys_dict_item sdi2,sys_dict_item sdi3
+        where cm.certification_criteria=sdi1.item_value
+          and cm.field_code=sdi2.item_value
+          and cm.industry_code=sdi3.item_value
+          and cm.method_code =#{id}
+    </select>
+
+    <select id="getCarbonMethodologyContentPageList" resultType="com.carbon.assets.vo.CarbonMethodologyContentQueryVo">
+        select <include refid="Base_Column_List"/> from carbon_methodology_content
+    </select>
+
+    <select id="getCarbonProjectByName" resultType="com.carbon.assets.entity.CarbonProjectContent">
+        select cp.*,sdi.item_ch as project_scope,cp.project_type as project_type
+        from carbon_project cp,sys_dict_item sdi
+        where cp.project_scope_code=sdi.item_value and cp.project_name=#{name}
+    </select>
+
+</mapper>

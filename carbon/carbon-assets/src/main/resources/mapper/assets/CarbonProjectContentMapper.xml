@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.carbon.assets.mapper.CarbonProjectContentMapper">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, project_name, project_content, content_url, owner_name, project_scope_code, project_type_code, project_status, address, carbon_methodology, initiation_date, approval_date, record_filing_date, certified_date, issuing_date, reduction_date, tenant_id, owner_name_code
+    </sql>
+
+    <select id="getCarbonProjectContentById" resultType="com.carbon.assets.vo.CarbonProjectContentQueryVo">
+        select <include refid="Base_Column_List"/> from carbon_project_content where id = #{id}
+    </select>
+
+    <select id="getCarbonMethodologyById" resultType="com.carbon.assets.entity.CarbonMethodologyContent">
+        select cm.*,cm.id as methodId,sdi.item_ch as certificationCriteriaName from carbon_methodology cm,sys_dict_item sdi
+        where sdi.item_value=cm.certification_criteria
+        and cm.id=#{id}
+    </select>
+
+</mapper>

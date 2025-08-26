@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.carbon.assets.mapper.CarbonMetaregistryDocMapper">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, project_ref_id, registry_id,type, title, url, finish_time, create_time, update_time
+    </sql>
+
+    <select id="getCarbonMetaregistryDocById" resultType="com.carbon.assets.vo.CarbonMetaregistryDocQueryVo">
+        select <include refid="Base_Column_List"/> from carbon_metaregistry_doc where id = #{id}
+    </select>
+
+    <select id="getCarbonMetaregistryDocByRegistryId" resultType="com.carbon.assets.vo.CarbonMetaregistryDocQueryVo">
+        select <include refid="Base_Column_List"/> from carbon_metaregistry_doc where registry_id = #{id}
+    </select>
+
+    <update id="updateByref">
+        UPDATE carbon_metaregistry_doc cmd SET url=#{url}
+        WHERE cmd.project_ref_id=#{ref} and type_code=#{typeCode}
+    </update>
+    
+    <select id="getCarbonMetaregistryDocPageList" resultType="com.carbon.assets.vo.CarbonMetaregistryDocQueryVo">
+        select
+        cmd.id,cmd.registry_id, cmd.project_ref_id, cmd.type, cmd.title, cmd.url, cmd.finish_time, cmd.create_time, cmd.update_time
+        ,cm.project_name as project_registry_name
+        from carbon_metaregistry_doc cmd left JOIN carbon_metaregistry cm ON cmd.registry_id = cm.id
+        <where>
+            <if test="param.registryId != null and param.registryId !=''">
+                and registry_id = #{param.registryId}
+            </if>
+            <if test="param.type != null and param.type !=''">
+                and type_code = #{param.type}
+            </if>
+            <if test="param.searchKey != null and param.searchKey !='' ">
+                and ( cmd.project_ref_id like CONCAT('%',#{param.searchKey},'%')
+                or cmd.title like CONCAT('%',#{param.searchKey},'%')
+                or cm.project_name like CONCAT('%',#{param.searchKey},'%'))
+            </if>
+
+            <if test="param.completionDateStart != null ">
+                and <![CDATA[ finish_time >= #{param.completionDateStart} ]]>
+            </if>
+            <if test="param.completionDateEnd != null ">
+                and <![CDATA[  finish_time <= #{param.completionDateEnd} ]]>
+            </if>
+        </where>
+    </select>
+
+</mapper>

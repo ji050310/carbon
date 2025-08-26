@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.carbon</groupId>
+    <artifactId>carbon-frame</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>carbon-common</module>
+        <module>carbon-common-model</module>
+    </modules>
+
+    <packaging>pom</packaging>
+    <name>carbon-frame</name>
+    <description>碳资产管理平台框架</description>
+
+    <parent>
+        <groupId>com.carbon</groupId>
+        <artifactId>carbon-parent</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <repositories>
+        <repository>
+            <id>spring-snapshots</id>
+            <name>Spring Snapshots</name>
+            <url>https://repo.spring.io/snapshot</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>spring-snapshots</id>
+            <name>Spring Snapshots</name>
+            <url>https://repo.spring.io/snapshot</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+    <build>
+        <pluginManagement>
+            <plugins>
+                <!--单元测试插件-->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.12.4</version>
+                    <configuration>
+                        <skipTests>true</skipTests>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                </plugin>
+                <!--docker-maven-plugin插件打包-->
+                <plugin>
+                    <groupId>com.spotify</groupId>
+                    <artifactId>docker-maven-plugin</artifactId>
+                    <version>1.2.2</version>
+
+                    <!-- 移除在 package 阶段自动 build docker 镜像，避免本地无 Docker 时构建失败 -->
+
+                    <configuration>
+                        <!--镜像名称-->
+                        <imageName>${project.artifactId}:1.0.0</imageName>
+                        <!--基础镜像jdk1.8-->
+<!--                        <baseImage>java:8</baseImage>-->
+                        <!--基础镜像 普通-->
+<!--                        <baseImage>openjdk:8</baseImage>-->
+                        <!--基础镜像区块链-->
+                        <baseImage>openjdk:8u102</baseImage>
+                        <!--制作者提供本人信息-->
+                        <maintainer>ninesun@qq.com</maintainer>
+                        <!--切换到Root目录-->
+                        <workdir>/ROOT</workdir>
+                        <cmd>["java", "-version"]</cmd>
+                        <entryPoint>["java","-Xms512m","-Xmx512m","-jar", "${project.build.finalName}.jar"，"--spring.profiles.active=test"]</entryPoint>
+                        <!--指定远程docker api地址，可通过 -Ddocker.host=... 覆盖 -->
+                        <dockerHost>${docker.host}</dockerHost>
+                        <!-- 这里是复制 jar 包到 docker 容器指定目录配置 -->
+                        <resources>
+                            <resource>
+                                <targetPath>/ROOT</targetPath>
+                                <!--用于指定需要复制的根目录-->
+                                <directory>${project.build.directory}</directory>
+                                <!--用于指定需要复制的jar文件-->
+                                <include>${project.build.finalName}.jar</include>
+                            </resource>
+                        </resources>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+</project>

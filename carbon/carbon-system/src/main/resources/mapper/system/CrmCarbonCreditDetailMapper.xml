@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.carbon.system.mapper.CrmCarbonCreditDetailMapper">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, user_id, reduce_method, frequency, clear_time, carbon_reduction, carbon_credit
+    </sql>
+
+    <select id="getCrmCarbonCreditDetailById" resultType="com.carbon.system.vo.CrmCarbonCreditDetailVo">
+        select <include refid="Base_Column_List"/> from crm_carbon_credit_detail where id = #{id}
+    </select>
+
+    <select id="getCrmCarbonCreditDetailPageList" resultType="com.carbon.system.vo.CrmCarbonCreditDetailVo">
+        select <include refid="Base_Column_List"/> from crm_carbon_credit_detail
+    </select>
+
+</mapper>

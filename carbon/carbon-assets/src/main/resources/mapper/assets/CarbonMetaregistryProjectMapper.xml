@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.carbon.assets.mapper.CarbonMetaregistryProjectMapper">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        created_time,
+        updated_id,
+        creator_id,
+        updated_time,
+        id, metaregistry_id, project_introduction, tenant_id
+    </sql>
+
+    <select id="getCarbonMetaregistryProjectById" resultType="com.carbon.assets.vo.CarbonMetaregistryProjectQueryVo">
+        select <include refid="Base_Column_List"/> from carbon_metaregistry_project where id = #{id}
+    </select>
+
+    <select id="getCarbonMetaregistryProjectPageList" resultType="com.carbon.assets.vo.CarbonMetaregistryProjectQueryVo">
+        select <include refid="Base_Column_List"/> from carbon_metaregistry_project
+    </select>
+
+</mapper>

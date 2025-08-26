@@ -1,0 +1,85 @@
+chain_id: xcarbonchain1
+version: v1.2.0
+sequence: 1
+auth_type: identity
+crypto:
+  hash: SHA256
+contract:
+  enable_sql_support: false
+block:
+  tx_timestamp_verify: true
+  tx_timeout: 600
+  block_tx_capacity: 10000
+  block_size: 10
+  block_interval: 2000
+core:
+  tx_scheduler_timeout: 10
+  tx_scheduler_validate_timeout: 10
+snapshot:
+  enable_evidence: false
+scheduler:
+  enable_evidence: false
+consensus:
+  type: 1
+  nodes:
+  - org_id: xcarbon
+    node_id:
+    - QmRXTNHsmgb4CRJAazb3pPn9tKTNvbW7ANTrD8vTZYQM87
+  ext_config:
+  - key: aa
+    value: chain01_ext11
+  dpos_config: []
+trust_roots:
+- org_id: xcarbon
+  root: ../config/xcarbon/certs/ca/xcarbon/ca.crt
+resource_policies:
+- resource_name: NODE_ID_UPDATE
+  policy:
+    rule: SELF
+    org_list: []
+    role_list:
+    - admin
+- resource_name: TRUST_ROOT_UPDATE
+  policy:
+    rule: SELF
+    org_list: []
+    role_list:
+    - admin
+- resource_name: CONSENSUS_EXT_DELETE
+  policy:
+    rule: MAJORITY
+    org_list: []
+    role_list:
+    - admin
+- resource_name: BLOCK_UPDATE
+  policy:
+    rule: ANY
+    org_list: []
+    role_list:
+    - admin
+    - client
+- resource_name: INIT_CONTRACT
+  policy:
+    rule: ANY
+    org_list: []
+    role_list: []
+- resource_name: UPGRADE_CONTRACT
+  policy:
+    rule: ANY
+    org_list: []
+    role_list: []
+- resource_name: FREEZE_CONTRACT
+  policy:
+    rule: ANY
+    org_list: []
+    role_list: []
+- resource_name: UNFREEZE_CONTRACT
+  policy:
+    rule: ANY
+    org_list: []
+    role_list: []
+- resource_name: REVOKE_CONTRACT
+  policy:
+    rule: ANY
+    org_list: []
+    role_list: []

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.carbon.auth.mapper.LoginMapper">
+
+
+	<select id="getSecurityDataAccountId" resultType="com.carbon.domain.auth.vo.SecurityData">
+		select sa.id accountId,
+		   sa.phone,
+		   sa.avatar,
+		   sa.account_name,
+		   sa.tenant_id,
+		   ifnull(group_concat(sr.role_code),'') roleCodeStr,
+		   ifnull(group_concat(sp.uri),'') permissionCodesStr,
+		   st.tenant_name,
+		   st.contacts_phone
+
+		from sys_account sa
+		left join sys_account_role sar on sar.account_id = sa.id
+		left join sys_role sr on sr.id = sar.role_id
+		left join sys_role_permission srp on srp.role_id = sar.role_id
+		left join sys_permission sp on sp.id = srp.permission_id
+		left join sys_tenant st on st.id = sa.tenant_id
+
+		where sa.id = #{accountId}
+		group by sa.id
+	</select>
+</mapper>

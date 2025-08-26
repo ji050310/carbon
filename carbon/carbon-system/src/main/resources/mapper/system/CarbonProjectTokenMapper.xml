@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.carbon.system.mapper.CarbonProjectTokenMapper">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        created_time,
+        updated_time,
+        creator_id,
+        updated_id,
+        project_id, file_token
+    </sql>
+
+    <select id="getCarbonProjectTokenById" resultType="com.carbon.system.vo.CarbonProjectTokenQueryVo">
+        select <include refid="Base_Column_List"/> from carbon_project_token where id = #{id}
+    </select>
+
+    <select id="getCarbonProjectTokenPageList" resultType="com.carbon.system.vo.CarbonProjectTokenQueryVo">
+        select <include refid="Base_Column_List"/> from carbon_project_token
+    </select>
+
+</mapper>

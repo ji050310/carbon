@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.carbon.assets.mapper.CarbonAssetsBusinessMapper">
+
+
+    <select id="getCarbonAssetsBusinessPageList" resultType="com.carbon.assets.vo.CarbonAssetsBusinessQueryVo">
+        select
+            id,
+            tx_id,
+            user_id_from,
+            org_name_from,
+            token_from,
+            org_name_to,
+            transfer_amount,
+            transfer_type,
+            remarks,
+            created_time,
+            updated_time
+        from carbon_assets_business cab
+        <where>
+            <if test="param.id != null and param.id != ''">
+                cab.id = #{param.id}
+            </if>
+            <if test="param.userIdFrom != null and param.userIdFrom != ''">
+                and cab.user_id_from = #{param.userIdFrom}
+            </if>
+            <if test="param.orgNameFrom != null and param.orgNameFrom != ''">
+                and cab.org_name_from = #{param.orgNameFrom}
+            </if>
+            <if test="param.orgNameTo != null and param.orgNameTo != ''">
+                and cab.org_name_to = #{param.orgNameTo}
+            </if>
+        </where>
+    </select>
+
+</mapper>

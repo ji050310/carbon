@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.carbon.assets.mapper.CarbonQuotaAssetsMapper">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        cqa.buy_certificate_file_name,
+        cqa.issuing_certificates_file_name,
+        cqa.creator_id,
+        cqa.updated_id,
+        cqa.created_time,
+        cqa.updated_time,
+        cqa.id, cqa.agency_name, cqa.carbon_exchange_id, cqa.issuing_agency,
+        cqa.issuing_certificates, cqa.issuing_date, cqa.expiry_date, cqa.assets_status,
+        cqa.transaction_status, cqa.buy_total_price, cqa.buy_unit_price, cqa.buy_date, cqa.buy_certificate,
+        cqa.total, cqa.available_amount, cqa.frozen_amount, cqa.locked_amount, cqa.valuation, cqa.tenant_id
+    </sql>
+
+    <select id="getCarbonQuotaAssetsById" resultType="com.carbon.assets.vo.CarbonQuotaAssetsQueryVo">
+        select <include refid="Base_Column_List"/>,
+        ce.name carbonExchangeName,ce.website carbonExchangeWebsite
+        from carbon_quota_assets cqa
+        left join carbon_exchange ce on ce.id = cqa.carbon_exchange_id
+        where cqa.id = #{id}
+    </select>
+
+    <select id="getCarbonQuotaAssetsPageList" resultType="com.carbon.assets.vo.CarbonQuotaAssetsQueryVo">
+        select <include refid="Base_Column_List"/>,
+        ce.name carbonExchangeName
+        from carbon_quota_assets cqa
+        left join carbon_exchange ce on ce.id = cqa.carbon_exchange_id
+        <where>
+            <if test="param.agencyName != null and param.agencyName !='' ">
+                and cqa.agency_name like CONCAT('%',#{param.agencyName},'%')
+            </if>
+            <if test="param.assetsStatus != null and param.assetsStatus !=''">
+                and cqa.assets_status = #{param.assetsStatus}
+            </if>
+            <if test="param.transactionStatus != null and param.transactionStatus != ''">
+                and cqa.transaction_status = #{param.transactionStatus}
+            </if>
+            <if test="param.expiryDateStart != null  ">
+                and <![CDATA[ cqa.expiry_date >= #{param.expiryDateStart} ]]>
+            </if>
+            <if test="param.expiryDateEnd != null ">
+                and <![CDATA[ cqa.expiry_date <= #{param.expiryDateEnd} ]]>
+            </if>
+        </where>
+    </select>
+    <select id="getCarbonAssetsTotal" resultType="com.carbon.assets.vo.CarbonAssetsTotalVo">
+        select sum(cqa.total) total,
+               sum(cqa.available_amount) availableAmount,
+               sum(cqa.frozen_amount) frozenAmount,
+               sum(cqa.locked_amount) lockedAmount
+        from carbon_quota_assets cqa
+    </select>
+
+</mapper>

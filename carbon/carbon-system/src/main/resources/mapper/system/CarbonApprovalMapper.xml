@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.carbon.system.mapper.CarbonApprovalMapper">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        business_id,approval_code, instance_code
+    </sql>
+
+    <select id="getCarbonProjectInstanceById" resultType="com.carbon.system.vo.CarbonApprovalQueryVo">
+        select <include refid="Base_Column_List"/> from carbon_approval where id = #{id}
+    </select>
+
+    <select id="getCarbonProjectInstancePageList" resultType="com.carbon.system.vo.CarbonApprovalQueryVo">
+        select <include refid="Base_Column_List"/> from carbon_approval
+    </select>
+
+    <update id="updateProjectStatus">
+            update carbon_project
+            set project_status = #{projectStatus}
+            where id = #{id}
+    </update>
+    <update id="updateExchangeAccountStatus">
+        update exchange_account
+        set account_status = #{accountStatus}
+        where id = #{id}
+    </update>
+
+    <update id="updateExchangeDate">
+        update exchange_account
+        set updated_time=#{newDate}
+        where id = #{id}
+    </update>
+
+    <update id="updateQuotaStatus">
+        update carbon_quota_assets
+        set assets_status = #{assetsStatus}
+        where id = #{id}
+    </update>
+
+    <delete id="deleteExchangeAccount">
+        delete from exchange_account where id=#{id}
+    </delete>
+
+    <update id="updateAssetsStatus">
+        update carbon_credit_assets
+        set assets_status = #{projectStatus}
+        where id = #{id}
+    </update>
+
+</mapper>

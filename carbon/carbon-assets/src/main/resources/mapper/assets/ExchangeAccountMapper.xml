@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.carbon.assets.mapper.ExchangeAccountMapper">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        creator_id,
+        created_time,
+        updated_id,
+        updated_time,
+        id, account_name, password, broker_id, carbon_exchange_id, carbon_amount, ccer_amount, account_status, tenant_id, remarks, cookie
+    </sql>
+
+    <update id="unbind">
+        update exchange_account set carbon_exchange_id = null,account_status='0430000005'
+        where id = #{id}
+    </update>
+
+    <select id="getExchangeAccountById" resultType="com.carbon.assets.vo.ExchangeAccountQueryVo">
+        select <include refid="Base_Column_List"/> from exchange_account where id = #{id}
+    </select>
+
+    <select id="getExchangeAccountByName" parameterType="com.carbon.assets.entity.ExchangeAccount" resultType="int">
+        select count(*)
+        from exchange_account
+        where account_name = #{accountName} and carbon_exchange_id = #{carbonExchangeId}
+          and account_status!='0430000005'
+    </select>
+
+    <select id="getExchangeAccountPageList" resultType="com.carbon.assets.vo.ExchangeAccountQueryVo">
+        select
+        ea.id,
+        ea.account_name,
+        ea.cookie,
+        ea.carbon_exchange_id,
+        ea.account_status,
+        ea.created_time,
+        ea.updated_time,
+        ce.name carbonExchangeName,
+        ce.business_scope,
+        ce.website url,
+        sa.account_name brokerName
+        from exchange_account ea
+        left join carbon_exchange ce on ce.id = ea.carbon_exchange_id
+        left join sys_account sa on sa.id = ea.broker_id
+        <where>
+            <if test="param.accountStatus != null">
+                ea.account_status = #{param.accountStatus}
+            </if>
+            <if test="param.keyWords != null and param.keyWords !=''">
+                and (ea.account_name like CONCAT('%',#{param.keyWords},'%') or ce.name like CONCAT('%',#{param.keyWords},'%') )
+            </if>
+            <if test="param.accountType != null">
+                and ea.account_type = #{param.accountType}
+            </if>
+            <if test="param.brokerId != null and param.brokerId !=''">
+                and ea.broker_id = #{param.brokerId}
+            </if>
+            <if test="param.carbonExchangeId != null and param.carbonExchangeId !=''">
+                and ea.carbon_exchange_id = #{param.carbonExchangeId}
+            </if>
+            <if test="param.carbonExchangeId != null and param.carbonExchangeId !=''">
+                and ea.carbon_exchange_id = #{param.carbonExchangeId}
+            </if>
+        </where>
+        order by ea.updated_time desc
+    </select>
+    <select id="getListByExchangeId" resultType="com.carbon.assets.vo.ExchangeAccountInfo">
+        select
+        ea.id,
+        ea.account_name,
+        ea.carbon_exchange_id,
+        ea.account_status,
+        ea.tenant_id,
+        ea.created_time,
+        ea.login_time,
+        ea.binding_time
+        from exchange_account ea
+        where
+        ea.account_status != '0430000005'
+        and
+        ea.carbon_exchange_id in
+        <foreach collection="exchangeIds" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+        order by
+        ea.updated_time desc
+    </select>
+
+</mapper>

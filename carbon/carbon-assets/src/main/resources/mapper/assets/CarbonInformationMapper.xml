@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.carbon.assets.mapper.CarbonInformationMapper">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        created_time,
+        updated_time,
+        id, title, url
+    </sql>
+
+    <select id="getCarbonInformationById" resultType="com.carbon.assets.vo.CarbonInformationQueryVo">
+        select <include refid="Base_Column_List"/> from carbon_information where id = #{id}
+    </select>
+
+    <select id="getCarbonInformationPageList" resultType="com.carbon.assets.vo.CarbonInformationQueryVo">
+        select <include refid="Base_Column_List"/> from carbon_information
+    </select>
+
+    <select id="getRandomList" resultType="com.carbon.assets.vo.CarbonInformationQueryVo">
+        SELECT <include refid="Base_Column_List"/> FROM carbon_information ORDER BY RAND() LIMIT #{num};
+    </select>
+
+</mapper>

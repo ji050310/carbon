@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="carbon-chainmaker" />
+        <module name="carbon-assets" />
+        <module name="carbon-common-model" />
+        <module name="carbon-trade" />
+        <module name="carbon-auth" />
+        <module name="carbon-mq" />
+        <module name="carbon-system" />
+        <module name="carbon-common" />
+        <module name="carbon-gate" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="carbon-assets" options="-parameters" />
+      <module name="carbon-auth" options="-parameters" />
+      <module name="carbon-chainmaker" options="-parameters" />
+      <module name="carbon-common" options="-parameters" />
+      <module name="carbon-common-model" options="-parameters" />
+      <module name="carbon-gate" options="-parameters" />
+      <module name="carbon-mq" options="-parameters" />
+      <module name="carbon-system" options="-parameters" />
+      <module name="carbon-trade" options="-parameters" />
+    </option>
+  </component>
+</project>

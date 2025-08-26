@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.carbon.system.mapper.CrmWithdrawalRecordMapper">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, withdrawal_amount, exchange_integral, exchange_time
+    </sql>
+
+    <select id="getCrmWithdrawalRecordById" resultType="com.carbon.system.vo.CrmWithdrawalRecordVo">
+        select <include refid="Base_Column_List"/> from crm_withdrawal_record where id = #{id}
+    </select>
+
+    <select id="getCrmWithdrawalRecordPageList" resultType="com.carbon.system.vo.CrmWithdrawalRecordVo">
+        select <include refid="Base_Column_List"/> from crm_withdrawal_record
+    </select>
+
+</mapper>

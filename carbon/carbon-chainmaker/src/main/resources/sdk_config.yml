@@ -1,0 +1,49 @@
+chain_client:
+  # 链ID
+  chain_id: "xcarbonchain1"
+  # 组织ID
+  org_id: "xcarbon"
+  # 客户端用户私钥路径
+  user_key_file_path: "crypto-config/xcarbon-xcarbonnode1/config/xcarbon/certs/user/client/client.tls.key"
+  # 客户端用户证书路径
+  user_crt_file_path: "crypto-config/xcarbon-xcarbonnode1/config/xcarbon/certs/user/client/client.tls.crt"
+  # 客户端用户交易签名私钥路径(若未设置，将使用user_key_file_path)
+  user_sign_key_file_path: "crypto-config/xcarbon-xcarbonnode1/config/xcarbon/certs/user/client/client.sign.key"
+  # 客户端用户交易签名证书路径(若未设置，将使用user_crt_file_path)
+  user_sign_crt_file_path: "crypto-config/xcarbon-xcarbonnode1/config/xcarbon/certs/user/client/client.sign.crt"
+
+  nodes:
+    - # 节点地址，格式为：IP:端口:连接数
+      #node_addr: "127.0.0.1:12301"
+      node_addr: "192.168.3.158:12305"
+      # 节点连接数
+      conn_cnt: 10
+      # RPC连接是否启用双向TLS认证
+      enable_tls: true
+      # 信任证书池路径
+      trust_root_paths:
+        - "crypto-config/xcarbon-xcarbonnode1/config/xcarbon/certs/ca/xcarbon/ca.crt"
+        - "crypto-config/xcarbon-xcarbonnode2/config/xcarbon/certs/ca/xcarbon/ca.crt"
+      # TLS hostname
+      tls_host_name: "chainmaker.org"
+    - # 节点地址，格式为：IP:端口:连接数
+      #node_addr: "127.0.0.1:12302"
+      node_addr: "192.168.3.158:12306"
+      # 节点连接数
+      conn_cnt: 10
+      # RPC连接是否启用双向TLS认证
+      enable_tls: true
+      # 信任证书池路径
+      trust_root_paths:
+        - "crypto-config/xcarbon-xcarbonnode1/config/xcarbon/certs/ca/xcarbon/ca.crt"
+        - "crypto-config/xcarbon-xcarbonnode2/config/xcarbon/certs/ca/xcarbon/ca.crt"
+      # TLS hostname
+      tls_host_name: "chainmaker.org"
+  archive:
+    # 数据归档链外存储相关配置
+    type: "mysql"
+    dest: "root:123456:192.168.3.35:3306"
+    secret_key: xxx
+  rpc_client:
+    # grpc客户端最大接受容量(MB)
+    max_receive_message_size: 16
