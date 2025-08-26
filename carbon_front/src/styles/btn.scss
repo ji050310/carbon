@@ -1,0 +1,246 @@
+@import './variables.scss';
+
+@mixin colorBtn($color) {
+  background: $color;
+
+  &:hover {
+    color: $color;
+
+    &:before,
+    &:after {
+      background: $color;
+    }
+  }
+}
+
+@mixin newColorBtn($bgcolor, $color, $hoverbgcolor, $hovercolor, $borderColor, $activeColor) {
+  background: $bgcolor !important;
+  width: 80px;
+  height: 32px;
+  border-radius: 3px;
+  text-align: center;
+  margin-top: auto;
+  margin-bottom: auto;
+  border-radius: 2px;
+  cursor: pointer;
+  color: $color;
+  font-size: 14px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  border: 1px solid $borderColor;
+
+  &:active {
+    background: $activeColor;
+    color: $activeColor;
+  };
+  // .btn {
+  //   /* background: -webkit-gradient(linear,left top,right top,from(#19b4f1),to(#0e73e8))!important; */
+  //   background: -webkit-gradient(linear,left top,right top,from(transition),to(transition))!important;
+  // }
+}
+
+@mixin noBgColorBtn($color, $hoverbgcolor, $hovercolor, $borderColor, $activeColor) {
+  width: 80px;
+  height: 32px;
+  border-radius: 3px;
+  text-align: center;
+  margin-top: auto;
+  margin-bottom: auto;
+  border-radius: 2px;
+  cursor: pointer;
+  color: $color;
+  font-size: 14px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  border: 1px solid $borderColor;
+
+  &:active {
+    background: $activeColor;
+    color: $activeColor;
+  };
+  // .btn {
+  //   /* background: -webkit-gradient(linear,left top,right top,from(#19b4f1),to(#0e73e8))!important; */
+  //   background: -webkit-gradient(linear,left top,right top,from(transition),to(transition))!important;
+  // }
+}
+
+.blue-btn {
+  @include newColorBtn($new-blue, white, white, $new-blue, $new-blue, $light-blue)
+}
+
+.light-blue-btn {
+  @include newColorBtn($new-blue, white, white, $new-blue, $new-blue, $light-blue)
+}
+
+.red-btn {
+  @include colorBtn($red)
+}
+
+.pink-btn {
+  @include colorBtn($pink)
+}
+// .el-button--primary{
+//   @include newColorBtn($lightGreen, white, white, #26B581, $lightGreen, $panGreen)
+// }
+.green-btn {
+  @include colorBtn($green)
+}
+.el-table th.el-table__cell>.cell{
+  padding-left: 0px;
+  padding-right: 0px;
+}
+.light-green-btn {
+  @include newColorBtn($lightGreen, white, white, #26B581, $lightGreen, $panGreen)
+}
+.normal-white-btn-no{
+  width: 80px;
+  height: 32px;
+  text-align: center;
+  margin-top: auto;
+  margin-bottom: auto;
+  border-radius: 2px;
+  font-size: 14px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  opacity: 0.5;
+  border: 1px solid #26B581;
+  color: #26B581;
+  background:white!important;
+  &:active {
+    color: #26B581;
+    background-color: #E5F9F0;
+  }
+}
+.normal-white-btn {
+  width: 80px;
+  height: 32px;
+  text-align: center;
+  margin-top: auto;
+  margin-bottom: auto;
+  border-radius: 2px;
+  cursor: pointer;
+  font-size: 14px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  border: 1px solid #26B581;
+  color: #26B581;
+  background:white!important;
+  &:active {
+    color: #26B581;
+    background-color: #E5F9F0;
+  };
+  // .btn {
+  //   /* background: -webkit-gradient(linear,left top,right top,from(#19b4f1),to(#0e73e8))!important; */
+  //   background: #26B581!important;
+  // }
+}
+
+
+
+.normal-white-blue-text-btn {
+  width: 80px;
+  height: 22px;
+  text-align: center;
+  margin-top: auto;
+  margin-bottom: auto;
+  border-radius: 2px;
+  cursor: pointer;
+  font-size: 14px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  border: 1px solid #207AFF;
+  color: #126FFF;
+  background:white!important;
+  &:active {
+    color: #126FFF;
+    background-color: #E5F9F0;
+  };
+}
+
+.normal-blue-btn {
+  width: 80px;
+  height: 32px;
+  text-align: center;
+  margin-top: auto;
+  margin-bottom: auto;
+  border-radius: 2px;
+  cursor: pointer;
+  font-size: 14px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  border: 1px solid #207AFF;
+  color: #126FFF;
+  background:white!important;
+  &:active {
+    color: #126FFF;
+    background-color: #E5F9F0;
+  };
+  // .btn {
+  //   /* background: -webkit-gradient(linear,left top,right top,from(#19b4f1),to(#0e73e8))!important; */
+  //   background: #126FFF!important;
+  // }
+}
+
+.tiffany-btn {
+  @include colorBtn($tiffany)
+}
+
+.yellow-btn {
+  @include colorBtn($yellow)
+}
+
+.pan-btn {
+  font-size: 14px;
+  color: #fff;
+  padding: 14px 36px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  transition: 600ms ease all;
+  position: relative;
+  display: inline-block;
+
+  &:hover {
+    background: #fff;
+
+    &:before,
+    &:after {
+      width: 100%;
+      transition: 600ms ease all;
+    }
+  }
+
+  &:before,
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 2px;
+    width: 0;
+    transition: 400ms ease all;
+  }
+
+  &::after {
+    right: inherit;
+    top: inherit;
+    left: 0;
+    bottom: 0;
+  }
+}
+
+.custom-button {
+  display: inline-block;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  background: #fff;
+  color: #fff;
+  -webkit-appearance: none;
+  text-align: center;
+  box-sizing: border-box;
+  outline: 0;
+  margin: 0;
+  padding: 10px 15px;
+  font-size: 14px;
+  border-radius: 4px;
+}
+
+  .btn {
+    /* background: -webkit-gradient(linear,left top,right top,from(#19b4f1),to(#0e73e8))!important; */
+    background: transparent!important;
+  }
