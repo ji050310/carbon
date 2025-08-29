@@ -12,6 +12,9 @@ import com.carbon.domain.common.ApiResult;
 import com.carbon.common.api.Paging;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.carbon.trade.sentinel.TradeSentinelHandler;
+import com.carbon.domain.sentinel.CommonSentinelHandler;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,6 +65,7 @@ public class CarbonTradePriceController extends BaseController {
      */
     @PostMapping("/getPageList")
     @ApiOperation(value = "碳交易询报价分页列表",notes = "碳交易询报价分页列表")
+    @SentinelResource(value = "getCarbonTradePricePageList", blockHandlerClass = TradeSentinelHandler.class, blockHandler = "handleGetCarbonTradePricePageList", fallbackClass = com.carbon.domain.sentinel.CommonSentinelHandler.class, fallback = "fallback")
     public ApiResult<Paging<CarbonTradePriceQueryVo>> getCarbonTradePricePageList(@Valid @RequestBody(required = false) CarbonTradePriceQueryParam carbonTradePriceQueryParam) {
         Paging<CarbonTradePriceQueryVo> paging = carbonTradePriceService.getCarbonTradePricePageList(carbonTradePriceQueryParam);
         return ApiResult.ok(paging);

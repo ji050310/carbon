@@ -18,6 +18,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.*;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.carbon.domain.sentinel.CommonSentinelHandler;
+import com.carbon.assets.sentinel.AssetsSentinelHandler;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -87,6 +90,11 @@ public class CarbonMethodologyController extends BaseController {
      */
     @PostMapping("/getPageList")
     @ApiOperation(value = "碳减排方法学分页列表",notes = "碳减排方法学分页列表")
+    @SentinelResource(value = "getCarbonMethodologyPageList",
+            blockHandler = "handleGetCarbonMethodologyPageList",
+            blockHandlerClass = AssetsSentinelHandler.class,
+            fallback = "fallback",
+            fallbackClass = CommonSentinelHandler.class)
     public ApiResult<Paging<CarbonMethodologyQueryVo>> getCarbonMethodologyPageList(@Valid @RequestBody(required = false) CarbonMethodologyQueryParam carbonMethodologyQueryParam) {
         Paging<CarbonMethodologyQueryVo> paging = carbonMethodologyService.getCarbonMethodologyPageList(carbonMethodologyQueryParam);
         return ApiResult.ok(paging);
@@ -97,6 +105,11 @@ public class CarbonMethodologyController extends BaseController {
      */
     @GetMapping("/list")
     @ApiOperation(value = "方法学下拉列表",notes = "方法学下拉列表")
+    @SentinelResource(value = "getCarbonMethodologyList",
+            blockHandler = "handleGetCarbonMethodologyList",
+            blockHandlerClass = AssetsSentinelHandler.class,
+            fallback = "fallback",
+            fallbackClass = CommonSentinelHandler.class)
     public ApiResult<List<CarbonMethodologySelectVo>> getCarbonMethodologyList() {
         return ApiResult.ok(carbonMethodologyService.getCarbonMethodologyList());
     }

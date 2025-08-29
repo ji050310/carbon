@@ -1,0 +1,25 @@
+# Sentinel 简化配置（不依赖 Nacos 数据源）
+spring:
+  cloud:
+    sentinel:
+      enabled: true
+      # Sentinel Dashboard 配置
+      transport:
+        dashboard: 127.0.0.1:8080
+        port: 8721
+      # 关闭饥饿加载，避免启动时连接问题
+      eager: false
+      # 暂时不使用 Nacos 数据源，避免启动依赖问题
+      # datasource:
+      #   flow:
+      #     nacos:
+      #       server-addr: ${spring.cloud.nacos.discovery.server-addr}
+      #       dataId: carbon-auth-flow-rules
+      #       groupId: SENTINEL_GROUP
+      #       rule-type: flow
+
+# 设置日志级别
+logging:
+  level:
+    com.alibaba.cloud.sentinel: INFO
+    com.alibaba.nacos: WARN

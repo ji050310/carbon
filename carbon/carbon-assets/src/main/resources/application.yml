@@ -12,6 +12,7 @@ spring:
     # 本地运行使用dev，打包时使用test
 #    active: dev
     active: test
+    include: sentinel  # 包含 Sentinel 配置
   # 允许循环依赖（临时解决方案，最好通过重构解决）
   main:
     allow-circular-references: true

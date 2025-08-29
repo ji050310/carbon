@@ -8,6 +8,7 @@ spring:
   main:
     allow-circular-references: true
     web-application-type: reactive # 强制使用 WebFlux
+    allow-bean-definition-overriding: true # 允许Bean覆盖
   profiles:
     # 本地运行使用dev，打包时使用test
 #        active: dev
@@ -54,6 +55,39 @@ spring:
       httpclient:
         connect-timeout: 30000
         response-timeout: 30000
+
+    # Sentinel 配置
+    sentinel:
+      enabled: true
+      # Sentinel Dashboard 配置
+      transport:
+        dashboard: 127.0.0.1:8080
+        port: 8719
+      # 饥饿加载，应用启动时即加载规则
+      eager: true
+      # Nacos 数据源配置
+      datasource:
+        # 流控规则数据源
+        flow:
+          nacos:
+            server-addr: ${spring.cloud.nacos.discovery.server-addr}
+            dataId: carbon-gate-flow-rules
+            groupId: SENTINEL_GROUP
+            rule-type: flow
+        # 降级规则数据源
+        degrade:
+          nacos:
+            server-addr: ${spring.cloud.nacos.discovery.server-addr}
+            dataId: carbon-gate-degrade-rules
+            groupId: SENTINEL_GROUP
+            rule-type: degrade
+        # 网关限流规则数据源
+        gw-flow:
+          nacos:
+            server-addr: ${spring.cloud.nacos.discovery.server-addr}
+            dataId: carbon-gate-gw-flow-rules
+            groupId: SENTINEL_GROUP
+            rule-type: gw-flow
 
 # 设置 feign 超时时间
 feign:

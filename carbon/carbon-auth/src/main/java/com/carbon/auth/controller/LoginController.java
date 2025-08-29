@@ -14,6 +14,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.carbon.domain.sentinel.CommonSentinelHandler;
+import com.carbon.auth.sentinel.AuthSentinelHandler;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -39,6 +42,11 @@ public class LoginController {
 
     @PostMapping("/login")
     @ApiOperation(value = "登录", notes = "登录", response = ApiResult.class)
+    @SentinelResource(value = "authLogin",
+            blockHandler = "handleAuthLogin",
+            blockHandlerClass = AuthSentinelHandler.class,
+            fallback = "fallback",
+            fallbackClass = CommonSentinelHandler.class)
     public ApiResult<LoginInfoVo> login(@Validated @RequestBody LoginParam loginParam, HttpServletRequest request) {
         return ApiResult.ok(loginService.byLoginName(loginParam));
     }
@@ -67,6 +75,11 @@ public class LoginController {
 
     @GetMapping("/forgotPassword/code/{phone}")
     @ApiOperation(value = "验证码-忘记密码", notes = "获取验证码")
+    @SentinelResource(value = "forgotPasswordCode",
+            blockHandler = "handleForgotPasswordCode",
+            blockHandlerClass = AuthSentinelHandler.class,
+            fallback = "fallback",
+            fallbackClass = CommonSentinelHandler.class)
     public ApiResult<Boolean> sendForgotPasswordCode(@PathVariable String phone) {
         smsService.sendForgotPasswordCode(phone);
         return ApiResult.ok("发送成功");

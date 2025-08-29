@@ -10,6 +10,9 @@ import com.carbon.common.api.Paging;
 import com.carbon.trade.vo.TradeContractPerformanceVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.carbon.trade.sentinel.TradeSentinelHandler;
+import com.carbon.domain.sentinel.CommonSentinelHandler;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 
@@ -61,6 +64,7 @@ public class CarbonTradeContractController extends BaseController {
      */
     @PostMapping("/getPageList")
     @ApiOperation(value = "履约分页列表",notes = "碳交易履约分页列表")
+    @SentinelResource(value = "getCarbonTradeContractPageList", blockHandlerClass = TradeSentinelHandler.class, blockHandler = "handleGetCarbonTradeContractPageList", fallbackClass = CommonSentinelHandler.class, fallback = "fallback")
     public ApiResult<Paging<CarbonTradeContractQueryVo>> getCarbonTradeContractPageList(@Valid @RequestBody(required = false) CarbonTradeContractQueryParam carbonTradeContractQueryParam) {
         Paging<CarbonTradeContractQueryVo> paging = carbonTradeContractService.getCarbonTradeContractPageList(carbonTradeContractQueryParam);
         return ApiResult.ok(paging);

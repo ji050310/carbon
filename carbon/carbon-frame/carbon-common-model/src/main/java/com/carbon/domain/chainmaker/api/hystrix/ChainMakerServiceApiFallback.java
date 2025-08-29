@@ -17,7 +17,7 @@ import com.carbon.domain.system.param.ChangePasswordParam;
 import com.carbon.domain.system.param.SysAccountParam;
 import com.carbon.domain.system.vo.SysAccountModelVo;
 import com.carbon.domain.system.vo.SysTenantModelVo;
-import feign.hystrix.FallbackFactory;
+import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.stereotype.Component;
 
 import javax.validation.Valid;

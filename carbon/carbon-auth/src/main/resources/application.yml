@@ -10,9 +10,11 @@ spring:
     name: carbon-auth #指定服务名
   main:
     allow-circular-references: true
+    allow-bean-definition-overriding: true # 允许Bean覆盖
   profiles:
     # 本地运行使用dev，打包时使用test
     active: test
+    include: sentinel  # 包含 Sentinel 配置
 #    active: test
 
 # 禁用 Swagger/Springfox 相关配置

@@ -74,12 +74,41 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
      * 检查路径是否允许无认证访问
      */
     private boolean isAllowedPath(String path) {
-        // 允许的路径列表
+        // 允许的路径列表 (从MyZuulFilter转移过来)
         String[] allowedPaths = {
+            // 原有路径
             "/authCenter/auth/login",
-            "/authCenter/login",
-            "/authCenter/register", 
+            "/authCenter/login", 
+            "/authCenter/register",
             "/authCenter/auth/register",
+            
+            // 从MyZuulFilter转移的路径
+            "/authCenter/auth/",  // 这会包含所有auth下的接口，包括forgotPassword
+
+            "/assets/carbonInformation/getRandomList",
+            "/assets/carbonInformation/add",
+            "/system/feishu",
+            "/system/feishu/approval/callback", 
+            "/system/sysAccount/renew/email",
+            "/system/carbonH5Article/getPageList",
+            "/system/weTaskFissionReward/activeComplete",
+            "/assets/exchangeAccount/uploadCredential",
+            "/assets/es/",
+            "/assets/change/",
+            "/cmall/",
+            "/bmall/",
+            "/system/carbonArticle/getPageList",
+            
+            // Swagger文档路径
+            "/system/v2/api-docs",
+            "/assets/v2/api-docs", 
+            "/trade/v2/api-docs",
+            "/authCenter/v2/api-docs",
+            "/workbench/v2/api-docs",
+            "/cmall/v2/api-docs",
+            "/bmall/v2/api-docs",
+            
+            // 系统路径
             "/actuator",
             "/v2/api-docs",
             "/doc.html",
@@ -110,7 +139,7 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
     
     @Override
     public int getOrder() {
-        // 设置过滤器顺序，数值越小优先级越高
-        return -100;
+        // 将鉴权放到限流之后执行
+        return Ordered.LOWEST_PRECEDENCE;
     }
 }

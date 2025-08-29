@@ -18,6 +18,9 @@
         <module name="carbon-gate" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="carbon-common-web" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
@@ -26,6 +29,7 @@
       <module name="carbon-chainmaker" options="-parameters" />
       <module name="carbon-common" options="-parameters" />
       <module name="carbon-common-model" options="-parameters" />
+      <module name="carbon-common-web" options="-parameters" />
       <module name="carbon-gate" options="-parameters" />
       <module name="carbon-mq" options="-parameters" />
       <module name="carbon-system" options="-parameters" />

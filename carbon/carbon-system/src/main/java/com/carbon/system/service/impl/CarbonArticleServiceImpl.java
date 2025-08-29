@@ -30,6 +30,8 @@ import com.carbon.system.vo.CarbonArticleAddVo;
 import com.carbon.system.vo.CarbonArticleQueryVo;
 import com.carbon.common.service.BaseServiceImpl;
 import com.carbon.common.api.Paging;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.alibaba.csp.sentinel.slots.block.BlockException;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import okhttp3.*;
@@ -91,6 +93,11 @@ public class CarbonArticleServiceImpl extends BaseServiceImpl<CarbonArticleMappe
     }
 
     @Override
+    @SentinelResource(value = "carbonArticlePageList",
+        blockHandler = "handleBlockForCarbonArticle",
+        blockHandlerClass = com.carbon.system.sentinel.SentinelFallbackHandler.class,
+        fallback = "handleFallbackForCarbonArticle",
+        fallbackClass = com.carbon.system.sentinel.SentinelFallbackHandler.class)
     public Paging<CarbonArticleQueryVo> getCarbonArticlePageList(CarbonArticleQueryParam param) {
         IPage<CarbonArticleQueryVo> iPage = carbonArticleMapper.getCarbonArticlePageList(getPage(param),param);
         iPage.getRecords().stream().forEach(e->{

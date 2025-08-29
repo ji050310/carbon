@@ -1,0 +1,39 @@
+# Sentinel 配置
+spring:
+  cloud:
+    sentinel:
+      enabled: true
+      # Sentinel Dashboard 配置
+      transport:
+        dashboard: 127.0.0.1:8080
+        port: 8723
+      # 饥饿加载，应用启动时即加载规则
+      eager: true
+      # Nacos 数据源配置
+      datasource:
+        # 流控规则数据源
+        flow:
+          nacos:
+            server-addr: ${spring.cloud.nacos.discovery.server-addr}
+            dataId: carbon-assets-flow-rules
+            groupId: SENTINEL_GROUP
+            rule-type: flow
+        # 降级规则数据源
+        degrade:
+          nacos:
+            server-addr: ${spring.cloud.nacos.discovery.server-addr}
+            dataId: carbon-assets-degrade-rules
+            groupId: SENTINEL_GROUP
+            rule-type: degrade
+        # 系统规则数据源
+        system:
+          nacos:
+            server-addr: ${spring.cloud.nacos.discovery.server-addr}
+            dataId: carbon-assets-system-rules
+            groupId: SENTINEL_GROUP
+            rule-type: system
+
+# Feign Sentinel 配置
+feign:
+  sentinel:
+    enabled: true

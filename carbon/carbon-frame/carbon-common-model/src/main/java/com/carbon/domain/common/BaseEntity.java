@@ -17,6 +17,7 @@ package com.carbon.domain.common;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -40,6 +41,7 @@ public abstract class BaseEntity implements Serializable{
 
     @TableField(fill = FieldFill.INSERT)
     @ApiModelProperty(value = "创建时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 //    @Field(type = FieldType.Date,format = DateFormat.custom,pattern ="uuuu-MM-dd HH:mm:ss")
     private Date createdTime;
 
@@ -49,6 +51,7 @@ public abstract class BaseEntity implements Serializable{
 
     @TableField(fill = FieldFill.INSERT_UPDATE)
     @ApiModelProperty(value = "更新时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 //    @Field(type = FieldType.Date,format = DateFormat.custom,pattern ="uuuu-MM-dd HH:mm:ss")
     private Date updatedTime;
 }

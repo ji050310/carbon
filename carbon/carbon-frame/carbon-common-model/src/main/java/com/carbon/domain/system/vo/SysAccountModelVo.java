@@ -3,6 +3,7 @@ package com.carbon.domain.system.vo;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.carbon.domain.common.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -53,5 +54,6 @@ public class SysAccountModelVo extends BaseEntity {
     private String avatar;
 
     @ApiModelProperty(value = "账户有效日期")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date validityPeriod;
 }

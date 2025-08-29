@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6f8d0eca-aac3-4b36-892a-9df5dd2a2c3d" name="Default Changelist" comment="0820jyz_01" />
+    <list default="true" id="6f8d0eca-aac3-4b36-892a-9df5dd2a2c3d" name="Default Changelist" comment="0820jyz_01">
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -134,7 +142,7 @@
     </findStrings>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -258,6 +266,9 @@
   </component>
   <component name="MavenRunner">
     <option name="skipTests" value="true" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
@@ -642,52 +653,52 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Test.executor&quot;: &quot;Run&quot;,
-    &quot;Application.test.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.carbon-common [install].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.carbon-common-model [install].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.carbon-frame [install].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.carbon-frame [package].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.carbon-mq [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.carbon-mq [compile].executor&quot;: &quot;Run&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;Spring Boot.AssetsApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.AuthApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.ChainMakerApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.GateApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.MqApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.SystemApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.TradeApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/ji/Desktop/250728QST/prog_carbon_pro/carbon&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Test.executor": "Run",
+    "Application.test.executor": "Run",
+    "Maven.carbon-common [install].executor": "Run",
+    "Maven.carbon-common-model [install].executor": "Run",
+    "Maven.carbon-frame [install].executor": "Run",
+    "Maven.carbon-frame [package].executor": "Run",
+    "Maven.carbon-mq [clean].executor": "Run",
+    "Maven.carbon-mq [compile].executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Spring Boot.AssetsApplication.executor": "Run",
+    "Spring Boot.AuthApplication.executor": "Run",
+    "Spring Boot.ChainMakerApplication.executor": "Run",
+    "Spring Boot.GateApplication.executor": "Run",
+    "Spring Boot.MqApplication.executor": "Run",
+    "Spring Boot.SystemApplication.executor": "Run",
+    "Spring Boot.TradeApplication.executor": "Run",
+    "git-widget-placeholder": "fuck",
+    "ignore.virus.scanning.warn.message": "true",
+    "junie.onboarding.icon.badge.shown": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "E:/carbon_02/carbon/carbon",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "run.configurations.included.in.services": "true",
+    "settings.editor.selected.configurable": "MavenSettings",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
     ]
   }
-}</component>
+}]]></component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -787,11 +798,11 @@
       <item itemvalue="Application.test" />
       <item itemvalue="Spring Boot.AssetsApplication" />
       <item itemvalue="Spring Boot.ChainMakerApplication" />
-      <item itemvalue="Spring Boot.SystemApplication" />
       <item itemvalue="Spring Boot.MqApplication" />
+      <item itemvalue="Spring Boot.SystemApplication" />
       <item itemvalue="Spring Boot.TradeApplication" />
-      <item itemvalue="Spring Boot.GateApplication" />
       <item itemvalue="Spring Boot.AuthApplication" />
+      <item itemvalue="Spring Boot.GateApplication" />
     </list>
     <recent_temporary>
       <list>
@@ -853,7 +864,11 @@
       <workItem from="1756124302122" duration="7575000" />
       <workItem from="1756133529698" duration="1086000" />
       <workItem from="1756134906744" duration="2305000" />
-      <workItem from="1756169915494" duration="3678000" />
+      <workItem from="1756169915494" duration="16157000" />
+      <workItem from="1756196140436" duration="889000" />
+      <workItem from="1756256279747" duration="47000" />
+      <workItem from="1756256333718" duration="11000" />
+      <workItem from="1756458197117" duration="4801000" />
     </task>
     <task id="LOCAL-00001" summary="081501">
       <option name="closed" value="true" />

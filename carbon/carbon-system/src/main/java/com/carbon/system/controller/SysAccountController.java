@@ -16,6 +16,8 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.carbon.system.sentinel.SentinelFallbackHandler;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -61,6 +63,11 @@ public class SysAccountController extends BaseController {
 
     @GetMapping("/list")
     @ApiOperation(value = "账户列表",notes = "账户列表")
+    @SentinelResource(value = "getAccountList",
+            blockHandler = "handleGetAccountListBlock",
+            blockHandlerClass = SentinelFallbackHandler.class,
+            fallback = "handleFallbackForAccount",
+            fallbackClass = SentinelFallbackHandler.class)
     public ApiResult<List<SysAccountModelVo>> getList() {
         return ApiResult.ok(BeanUtil.copyToList(sysAccountService.list(), SysAccountModelVo.class));
     }

@@ -18,6 +18,8 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.carbon.system.sentinel.SentinelFallbackHandler;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -101,6 +103,11 @@ public class SysTenantController extends BaseController {
      * 获取租户列表
      */
     @GetMapping("/list")
+    @SentinelResource(value = "getTenantList",
+            blockHandler = "handleGetTenantListBlock",
+            blockHandlerClass = SentinelFallbackHandler.class,
+            fallback = "handleFallbackForTenant",
+            fallbackClass = SentinelFallbackHandler.class)
     public ApiResult<List<com.carbon.domain.system.vo.SysTenantModelVo>> getTenantList(){
         return ApiResult.ok(sysTenantService.getSysTenantList());
     };

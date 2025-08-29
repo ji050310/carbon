@@ -3,7 +3,7 @@ package com.carbon.domain.auth.api.hystrix;
 import com.carbon.domain.auth.api.LoginCheckApi;
 import com.carbon.domain.auth.vo.SecurityData;
 import com.carbon.domain.common.ApiResult;
-import feign.hystrix.FallbackFactory;
+import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.stereotype.Component;
 
 /**

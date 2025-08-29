@@ -1,0 +1,23 @@
+# Sentinel 简化配置（不依赖 Nacos 数据源）
+spring:
+  cloud:
+    sentinel:
+      enabled: true
+      # Sentinel Dashboard 配置
+      transport:
+        dashboard: 127.0.0.1:8080
+        port: 8722  # gate 使用不同端口
+      # 关闭饥饿加载，避免启动时连接问题
+      eager: false
+      # 网关特殊配置
+      scg:
+        fallback:
+          mode: response
+          response-status: 429
+          response-body: '{"code": 429, "message": "Too Many Requests"}'
+
+# 设置日志级别
+logging:
+  level:
+    com.alibaba.cloud.sentinel: INFO
+    com.alibaba.nacos: WARN

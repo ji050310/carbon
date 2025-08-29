@@ -47,6 +47,8 @@
         <nacos.version>2.2.3</nacos.version>
         <elasticsearch.version>7.8.0</elasticsearch.version>
         <redis.version>5.0.14</redis.version>
+        <!-- Sentinel 版本管理 -->
+        <sentinel.version>1.8.6</sentinel.version>
     <!-- Docker host for docker-maven-plugin; can be overridden with -Ddocker.host -->
     <docker.host>http://localhost:2375</docker.host>
     </properties>
@@ -97,6 +99,27 @@
                 <groupId>org.apache.rocketmq</groupId>
                 <artifactId>rocketmq-spring-boot-starter</artifactId>
                 <version>${rocketmq.version}</version>
+            </dependency>
+            <!-- Sentinel 版本管理 -->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+                <version>${spring.cloud.alibaba-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-sentinel-gateway</artifactId>
+                <version>${spring.cloud.alibaba-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-sentinel-datasource</artifactId>
+                <version>${spring.cloud.alibaba-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.csp</groupId>
+                <artifactId>sentinel-datasource-nacos</artifactId>
+                <version>${sentinel.version}</version>
             </dependency>
             <!-- Add Zuul starter version to avoid missing-version when modules still declare it -->
             <dependency>

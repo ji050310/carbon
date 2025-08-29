@@ -12,7 +12,8 @@ spring:
     allow-circular-references: true
   profiles:
     # 本地运行使用dev，打包时使用test
-        active: test
+    active: test
+    include: sentinel  # 包含 Sentinel 配置
 #    active: test
 
 # 禁用 Swagger/Springfox 相关配置

@@ -6,7 +6,7 @@ import com.carbon.domain.assets.vo.MethodologyUploadParam;
 import com.carbon.domain.common.ApiResult;
 
 import com.carbon.domain.mq.entity.CarbonProjectAddParam;
-import feign.hystrix.FallbackFactory;
+import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.stereotype.Component;
 
 
